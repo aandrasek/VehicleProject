@@ -1,0 +1,81 @@
+﻿@model IEnumerable<VehicleMonoProject.MVC.ViewModels.ModelViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .align {
+        text-align: center;
+    }
+
+    .pagenum {
+        font-size: 20px;
+        color: #000000;
+        padding: 10px;
+    }
+
+    .curpage {
+        color: #0094ff;
+        font-weight: bold;
+    }
+</style>
+
+<h3>VehicleModel</h3>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "Model")
+</p>
+
+@Html.ActionLink("Order by name", "Index", "Model", new { sort = "Name" }, null)|
+@Html.ActionLink("Order by name(reversed)", "Index", "Model", new { sort = "NameDesc" }, null)|
+@Html.ActionLink("Order by make", "Index", "Model", new { sort = "Make" }, null)
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MakeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Abrv)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MakeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Abrv)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Update", "Model", new { Id = item.Id }, null) |
+                @Html.ActionLink("Delete", "Delete", "Model", new { Id = item.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="align">
+    @for (int i = 1; i <= ViewBag.pageCount; i++)
+    {
+        if (i == ViewBag.page)
+        {
+            @Html.ActionLink(i.ToString(), "Index", "Model", new { ID = ViewBag.id, search = ViewBag.Search, page = i, sort = ViewBag.sort }, new { @class = "pagenum curpage" })
+        }
+        else
+        {
+            @Html.ActionLink(i.ToString(), "Index", "Model", new { ID = ViewBag.id, search = ViewBag.Search, page = i, sort = ViewBag.sort }, new { @class = "pagenum" })
+
+        }
+
+    }
+</div>

@@ -1,0 +1,9 @@
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Service.Common.dll.config
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Service.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Service.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\obj\Debug\VehicleMonoProject.Service.Common.csproj.CoreCompileInputs.cache
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\obj\Debug\VehicleMonoProject.Service.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\obj\Debug\VehicleMonoProject.Service.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\obj\Debug\VehicleMonoProject.Service.Common.csprojResolveAssemblyReference.cache

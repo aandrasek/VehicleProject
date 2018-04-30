@@ -1,0 +1,72 @@
+﻿@model IEnumerable<VehicleMonoProject.MVC.ViewModels.MakeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .align {
+        text-align: center;
+    }
+
+    .pagenum {
+        font-size: 20px;
+        color: #000000;
+        padding: 10px;
+    }
+
+    .curpage {
+        color: #0094ff;
+        font-weight: bold;
+    }
+</style>
+
+<h3>VehicleMake</h3>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@Html.ActionLink("Order by name", "Index", "Make", new { sort = "Name" }, null)|
+@Html.ActionLink("Order by name(reversed)", "Index", "Make", new { sort = "NameDesc" }, null)
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Abrv)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Abrv)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Update", "Make", new { Id = item.Id }, null) |
+                @Html.ActionLink("Delete", "Delete", "Make", new { Id = item.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="align">
+    @for (int i = 1; i <= ViewBag.pageCount; i++)
+    {
+        if (i == ViewBag.page)
+        {
+            @Html.ActionLink(i.ToString(), "Index", "Make", new { ID = ViewBag.id, search = ViewBag.Search, page = i, sort = ViewBag.sort }, new { @class = "pagenum curpage" })
+        }
+        else
+        {
+            @Html.ActionLink(i.ToString(), "Index", "Make", new { ID = ViewBag.id, search = ViewBag.Search, page = i, sort = ViewBag.sort }, new { @class = "pagenum" })
+
+        }
+
+    }
+</div>
