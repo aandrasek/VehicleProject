@@ -8,7 +8,6 @@ namespace VehicleMonoProject.Common
 {
     public class PagedResult<T>
     {
-
         public IList<T> Results { get; set; }
         public int CurrentPage { get; set; }
         public int PageCount { get; set; }

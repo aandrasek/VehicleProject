@@ -1,0 +1,79 @@
+﻿@model VehicleMonoProject.MVC.ViewModels.VehicleMakeList_ViewModel
+
+@{
+    /**/
+
+    ViewBag.Title = "VehicleMakeList";
+}
+<link rel="stylesheet" type="text/css" href="~/Main.css">
+
+<h3>VehicleMake List</h3>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("VehicleMakeList", "VehicleMake"))
+{
+<label>Search(by sort):</label>
+    <input type="text" name="search" value="@Model.search">
+
+    <label>Sort:</label>
+    <select name="sort">
+        <option value="Name" @(Model.sort == "Name" ? "selected" : "")>Name</option>
+        <option value="Abrv" @(Model.sort == "Abrv" ? "selected" : "")>Abrv</option>
+    </select>
+
+    <label>Direction:</label>
+    <select name="direction">
+        <option value="Ascending" @(Model.direction == "Ascending" ? "selected" : "")>Ascending</option>
+        <option value="Descending" @(Model.direction == "Descending" ? "selected" : "")>Descending</option>
+    </select>
+    <input type="submit" class="button" value="Search" />
+}
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Abrv
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.VehicleMakeList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Abrv)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Update", "VehicleMake", new { Id = item.Id }, null) |
+                @Html.ActionLink("Delete", "Delete", "VehicleMake", new { Id = item.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="align">
+    @for (int page = 1; page <= Model.pageCount; page++)
+    {
+        if (page == Model.page)
+        {
+            @Html.ActionLink(page.ToString(), "VehicleMakeList", "VehicleMake", new { search = Model.search, page = page, sort = Model.sort, direction = Model.direction }, new { @class = "pagenumber currentpage" })
+        }
+        else
+        {
+            @Html.ActionLink(page.ToString(), "VehicleMakeList", "VehicleMake", new { search = Model.search, page = page, sort = Model.sort, direction = Model.direction }, new { @class = "pagenumber" })
+
+        }
+
+    }
+</div>
+
+

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{76FCF96F-6449-43A1-9ACE-AA4EC12A636D}</ProjectGuid>
+    <ProjectGuid>{942DB82C-E076-4686-8B41-1074A81894D3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VehicleMonoProject.Service.Common</RootNamespace>
@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,17 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMake.cs" />
-    <Compile Include="IModel.cs" />
-    <Compile Include="IVehicleService.cs" />
+    <Compile Include="IVehicleMake.cs" />
+    <Compile Include="IVehicleMakeService.cs" />
+    <Compile Include="IVehicleModel.cs" />
+    <Compile Include="IVehicleModelService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\VehicleMonoProject.Common\VehicleMonoProject.Common.csproj">
-      <Project>{727A8457-FD38-41AF-9266-B76468E99B19}</Project>
+      <Project>{ECA0CD6E-99B2-44A2-A8F2-6C9753FA9356}</Project>
       <Name>VehicleMonoProject.Common</Name>
     </ProjectReference>
   </ItemGroup>

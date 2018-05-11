@@ -4,13 +4,28 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{25A22251-8783-4DF7-B985-AE276AE0160C}</ProjectGuid>
+    <ProjectGuid>{B6F9F85D-DD2F-4913-B577-912A87D8DBFE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VehicleMonoProject.Service</RootNamespace>
     <AssemblyName>VehicleMonoProject.Service</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +58,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,25 +67,56 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Make.cs" />
-    <Compile Include="Models\Model.cs" />
+    <Compile Include="C__MigrationHistory.cs" />
+    <Compile Include="Migrations\201805101716522_InitialCreate.cs" />
+    <Compile Include="Migrations\201805101716522_InitialCreate.Designer.cs">
+      <DependentUpon>201805101716522_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805110705459_first.cs" />
+    <Compile Include="Migrations\201805110705459_first.Designer.cs">
+      <DependentUpon>201805110705459_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VehicleDB.cs" />
-    <Compile Include="VehicleService.cs" />
+    <Compile Include="VehicleMake.cs" />
+    <Compile Include="VehicleMakeService.cs" />
+    <Compile Include="VehicleModel.cs" />
+    <Compile Include="VehicleModelService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VehicleMonoProject.Common\VehicleMonoProject.Common.csproj">
+      <Project>{ECA0CD6E-99B2-44A2-A8F2-6C9753FA9356}</Project>
+      <Name>VehicleMonoProject.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleMonoProject.Service.Common\VehicleMonoProject.Service.Common.csproj">
+      <Project>{942DB82C-E076-4686-8B41-1074A81894D3}</Project>
+      <Name>VehicleMonoProject.Service.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VehicleMonoProject.Common\VehicleMonoProject.Common.csproj">
-      <Project>{727A8457-FD38-41AF-9266-B76468E99B19}</Project>
-      <Name>VehicleMonoProject.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VehicleMonoProject.Service.Common\VehicleMonoProject.Service.Common.csproj">
-      <Project>{76FCF96F-6449-43A1-9ACE-AA4EC12A636D}</Project>
-      <Name>VehicleMonoProject.Service.Common</Name>
-    </ProjectReference>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805101716522_InitialCreate.resx">
+      <DependentUpon>201805101716522_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805110705459_first.resx">
+      <DependentUpon>201805110705459_first.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
