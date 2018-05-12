@@ -61,8 +61,8 @@ namespace VehicleMonoProject.Service
             {
                 switch (sort)
                 {
-                    case "Make_Id":
-                        vehicleModelList = vehicleModelList.Where(s => s.MakeId.ToString().Contains(search)).ToList();
+                    case "MakeId":
+                        vehicleModelList = vehicleModelList.Where(s => s.MakeId.ToString().Contains(search.ToString())).ToList();
                         break;
                     case "Name":
                         vehicleModelList = vehicleModelList.Where(s => s.Name.ToUpper().Contains(search.ToUpper())).ToList();
