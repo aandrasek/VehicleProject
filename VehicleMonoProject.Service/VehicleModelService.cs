@@ -28,7 +28,25 @@ namespace VehicleMonoProject.Service
             }
             if (!string.IsNullOrEmpty(search))
             {
+<<<<<<< HEAD
                 vehicleModelList = Filter<IVehicleModel>.VehicleFilter(vehicleModelList, sort, search);
+=======
+                switch (sort)
+                {
+                    case "MakeId":
+                        vehicleModelList = vehicleModelList.Where(s => s.MakeId.ToString().Contains(search.ToString())).ToList();
+                        break;
+                    case "Name":
+                        vehicleModelList = vehicleModelList.Where(s => s.Name.ToUpper().Contains(search.ToUpper())).ToList();
+                        break;
+                    case "Abrv":
+                        vehicleModelList = vehicleModelList.Where(s => s.Abrv.ToUpper().Contains(search.ToUpper())).ToList();
+                        break;
+                    default:
+                        vehicleModelList = vehicleModelList.Where(s => s.Id.ToString().Contains(search)).ToList();
+                        break;
+                }
+>>>>>>> dde47b6ff45925438ba0450d50356e989e9bc342
             }
             var result = PagedResult<IVehicleModel>.GetPagedResultForList(vehicleModelList, page ?? 1, pageSize);
             return AutoMapper.Mapper.Map<PagedResult<IVehicleModel>>(result);
