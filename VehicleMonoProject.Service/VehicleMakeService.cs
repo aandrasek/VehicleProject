@@ -18,53 +18,20 @@ namespace VehicleMonoProject.Service
             context.VehicleMakes.Add(AutoMapper.Mapper.Map<VehicleMake>(make));
             context.SaveChanges();
         }
-        public PagedResult<IVehicleMake> ReadVehicleMake(string sort, string search, string direction, int? page)
+        public PagedResult<IVehicleMake> ReadVehicleMake(string sort, string search, string direction, int? page, int pageSize)
         {
-            var vehicleMakeList = context.VehicleMakes.ToList();
-            switch (sort)
+            var vehicleMakeList = AutoMapper.Mapper.Map<IList<IVehicleMake>>(context.VehicleMakes.ToList());
+            if (!string.IsNullOrEmpty(sort)&& vehicleMakeList.Count!=0)
             {
-                case "Name":
-                    if (direction == "Descending")
-                    {
-                        vehicleMakeList = vehicleMakeList.OrderByDescending(c => c.Name).ToList();
-                        break;
-                    }
-                    vehicleMakeList = vehicleMakeList.OrderBy(c => c.Name).ToList();
-                    break;
-                case "Abrv":
-                    if (direction == "Descending")
-                    {
-                        vehicleMakeList = vehicleMakeList.OrderByDescending(c => c.Abrv).ToList();
-                        break;
-                    }
-                    vehicleMakeList = vehicleMakeList.OrderBy(c => c.Abrv).ToList();
-                    break;
-                default:
-                    if (direction == "Descending")
-                    {
-                        vehicleMakeList = vehicleMakeList.OrderByDescending(c => c.Id).ToList();
-                        break;
-                    }
-                    vehicleMakeList = vehicleMakeList.OrderBy(c => c.Id).ToList();
-                    break;
+                vehicleMakeList = Sort<IVehicleMake>.VehicleSort(vehicleMakeList, sort, direction);
             }
             if (!string.IsNullOrEmpty(search))
             {
-                switch (sort)
-                {
-                    case "Name":
-                        vehicleMakeList = vehicleMakeList.Where(s => s.Name.ToUpper().Contains(search.ToUpper())).ToList();
-                        break;
-                    case "Abrv":
-                        vehicleMakeList = vehicleMakeList.Where(s => s.Abrv.ToUpper().Contains(search.ToUpper())).ToList();
-                        break;
-                    default:
-                        vehicleMakeList = vehicleMakeList.Where(s => s.Id.ToString().Contains(search)).ToList();
-                        break;
-                }
+                vehicleMakeList = Filter<IVehicleMake>.VehicleFilter(vehicleMakeList, sort, search);
             }
-            var result = PagedResult<IVehicleMake>.GetPagedResultForQuery(vehicleMakeList.AsQueryable(), page ?? 1, 3);
+            var result = PagedResult<IVehicleMake>.GetPagedResultForList(vehicleMakeList, page ?? 1, pageSize);
             return AutoMapper.Mapper.Map<PagedResult<IVehicleMake>>(result);
+
         }
         public void UpdateVehicleMake(IVehicleMake make)
         {
@@ -73,12 +40,12 @@ namespace VehicleMonoProject.Service
         }
         public void DeleteVehicleMake(IVehicleMake make)
         {
-            context.VehicleMakes.Remove(context.VehicleMakes.Where(c => c.Id == make.Id).FirstOrDefault());
+            context.VehicleMakes.Remove(context.VehicleMakes.Where(c => c.ID == make.ID).FirstOrDefault());
             context.SaveChanges();
         }
-        public IVehicleMake FindVehicleMakeWithID(int? Id)
+        public IVehicleMake FindVehicleMakeWithID(int ID)
         {
-            return context.VehicleMakes.Where(c => c.Id == Id).FirstOrDefault();
+            return context.VehicleMakes.Where(c => c.ID == ID).FirstOrDefault();
         }
     }
 }

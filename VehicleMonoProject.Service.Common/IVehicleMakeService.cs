@@ -10,9 +10,9 @@ namespace VehicleMonoProject.Service.Common
     public interface IVehicleMakeService
     {
         void CreateVehicleMake(IVehicleMake make);
-        PagedResult<IVehicleMake> ReadVehicleMake(string sort, string search, string direction, int? page);
+        PagedResult<IVehicleMake> ReadVehicleMake(string sort, string search, string direction, int? page,int pageSize);
         void UpdateVehicleMake(IVehicleMake make);
         void DeleteVehicleMake(IVehicleMake make);
-        IVehicleMake FindVehicleMakeWithID(int? Id);
+        IVehicleMake FindVehicleMakeWithID(int ID);
     }
 }

@@ -7,3 +7,11 @@ c:\users\mateo\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common
 C:\Users\Mateo\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Common.dll
 C:\Users\Mateo\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Common.pdb
 C:\Users\Mateo\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\obj\Debug\VehicleMonoProject.Service.Common.csproj.CopyComplete
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Service.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Service.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\bin\Debug\VehicleMonoProject.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\obj\Debug\VehicleMonoProject.Service.Common.csprojResolveAssemblyReference.cache
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\obj\Debug\VehicleMonoProject.Service.Common.csproj.CoreCompileInputs.cache
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\obj\Debug\VehicleMonoProject.Service.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service.Common\obj\Debug\VehicleMonoProject.Service.Common.pdb

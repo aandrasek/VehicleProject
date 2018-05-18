@@ -8,8 +8,8 @@ namespace VehicleMonoProject.Service.Common
 {
     public interface IVehicleModel
     {
-        int Id { get; set; }
-        int MakeId { get; set; }
+        int ID { get; set; }
+        int MakeID { get; set; }
         string Name { get; set; }
         string Abrv { get; set; }
     }

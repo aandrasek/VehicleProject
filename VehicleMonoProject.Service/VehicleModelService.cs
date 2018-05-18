@@ -9,74 +9,30 @@ using VehicleMonoProject.Service.Common;
 
 namespace VehicleMonoProject.Service
 {
-    public class VehicleModelService:IVehicleModelService
+    public class VehicleModelService : IVehicleModelService
     {
         VehicleDB context = new VehicleDB();
 
         public void CreateVehicleModel(IVehicleModel model)
         {
-            var vehicleMake = context.VehicleMakes.First(c=>c.Id==model.MakeId);
+            var vehicleMake = context.VehicleMakes.First(c => c.ID == model.MakeID);
             vehicleMake.VehicleModels.Add(AutoMapper.Mapper.Map<VehicleModel>(model));
             context.SaveChanges();
         }
-        public PagedResult<IVehicleModel> ReadVehicleModel(string sort, string direction, string search, int? page)
+        public PagedResult<IVehicleModel> ReadVehicleModel(string sort, string direction, string search, int? page, int pageSize)
         {
-            var vehicleModelList = context.VehicleModels.ToList();
-            switch (sort)
+            var vehicleModelList = AutoMapper.Mapper.Map<IList<IVehicleModel>>(context.VehicleModels.ToList());
+            if (!string.IsNullOrEmpty(sort) && vehicleModelList.Count != 0)
             {
-                case "MakeId":
-                    if (direction == "Descending")
-                    {
-                        vehicleModelList = vehicleModelList.OrderByDescending(c => c.MakeId).ToList();
-                        break;
-                    }
-                    vehicleModelList = vehicleModelList.OrderBy(c => c.MakeId).ToList();
-                    break;
-                case "Name":
-                    if (direction == "Descending")
-                    {
-                        vehicleModelList = vehicleModelList.OrderByDescending(c => c.Name).ToList();
-                        break;
-                    }
-                    vehicleModelList = vehicleModelList.OrderBy(c => c.Name).ToList();
-                    break;
-                case "Abrv":
-                    if (direction == "Descending")
-                    {
-                        vehicleModelList = vehicleModelList.OrderByDescending(c => c.Abrv).ToList();
-                        break;
-                    }
-                    vehicleModelList = vehicleModelList.OrderBy(c => c.Abrv).ToList();
-                    break;
-                default:
-                    if (direction == "Descending")
-                    {
-                        vehicleModelList = vehicleModelList.OrderByDescending(c => c.Id).ToList();
-                        break;
-                    }
-                    vehicleModelList = vehicleModelList.OrderBy(c => c.Id).ToList();
-                    break;
+                vehicleModelList = Sort<IVehicleModel>.VehicleSort(vehicleModelList, sort, direction);
             }
             if (!string.IsNullOrEmpty(search))
             {
-                switch (sort)
-                {
-                    case "Make_Id":
-                        vehicleModelList = vehicleModelList.Where(s => s.MakeId.ToString().Contains(search)).ToList();
-                        break;
-                    case "Name":
-                        vehicleModelList = vehicleModelList.Where(s => s.Name.ToUpper().Contains(search.ToUpper())).ToList();
-                        break;
-                    case "Abrv":
-                        vehicleModelList = vehicleModelList.Where(s => s.Abrv.ToUpper().Contains(search.ToUpper())).ToList();
-                        break;
-                    default:
-                        vehicleModelList = vehicleModelList.Where(s => s.Id.ToString().Contains(search)).ToList();
-                        break;
-                }
+                vehicleModelList = Filter<IVehicleModel>.VehicleFilter(vehicleModelList, sort, search);
             }
-            var result = PagedResult<IVehicleModel>.GetPagedResultForQuery(vehicleModelList.AsQueryable(), page ?? 1, 3);
+            var result = PagedResult<IVehicleModel>.GetPagedResultForList(vehicleModelList, page ?? 1, pageSize);
             return AutoMapper.Mapper.Map<PagedResult<IVehicleModel>>(result);
+
         }
         public IList<IVehicleMake> ReadVehicleMake()
         {
@@ -89,12 +45,12 @@ namespace VehicleMonoProject.Service
         }
         public void DeleteVehicleModel(IVehicleModel model)
         {
-            context.VehicleModels.Remove(context.VehicleModels.Where(c => c.Id == model.Id).FirstOrDefault());
+            context.VehicleModels.Remove(context.VehicleModels.Where(c => c.ID == model.ID).FirstOrDefault());
             context.SaveChanges();
         }
-        public IVehicleModel FindVehicleModelWithID(int? Id)
+        public IVehicleModel FindVehicleModelWithID(int ID)
         {
-            return context.VehicleModels.Where(c => c.Id == Id).FirstOrDefault();
+            return context.VehicleModels.Where(c => c.ID == ID).FirstOrDefault();
         }
     }
 }

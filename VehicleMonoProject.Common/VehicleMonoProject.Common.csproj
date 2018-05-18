@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filter.cs" />
     <Compile Include="PagedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sort.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

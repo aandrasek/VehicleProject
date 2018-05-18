@@ -17,20 +17,18 @@ namespace VehicleMonoProject.MVC.Controllers
 
         public ActionResult VehicleModelList(int? page, string sort, string direction, string search)
         {
-            var _vehicleModelList = vehicleModelService.ReadVehicleModel(sort, direction, search, page);
-            var viewModel = new VehicleModelList_ViewModel();
-            viewModel.page = page ?? 1;
-            viewModel.pageCount = _vehicleModelList.PageCount;
-            viewModel.sort = sort;
-            viewModel.search = search;
-            viewModel.direction = direction;
-            viewModel.VehicleModelList = AutoMapper.Mapper.Map<List<ModelViewModel>>(_vehicleModelList.Results);
-            return View(viewModel);
+            var vehicleModelList = vehicleModelService.ReadVehicleModel(sort, direction, search, page,3);
+            ViewBag.page = page ?? 1;
+            ViewBag.pageCount = vehicleModelList.PageCount;
+            ViewBag.sort = sort;
+            ViewBag.search = search;
+            ViewBag.direction = direction;
+            return View(AutoMapper.Mapper.Map<IList<ModelViewModel>>(vehicleModelList.Results));
         }
         public ActionResult Create()
         {
             ListViewModel listViewModel = new ListViewModel();
-            listViewModel.Items = vehicleModelService.ReadVehicleMake().Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name });
+            listViewModel.Items = vehicleModelService.ReadVehicleMake().Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.Name });
             return View(listViewModel);
         }
         [HttpPost]
@@ -41,7 +39,7 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    model.MakeId = model.SelectedId.FirstOrDefault();
+                    model.MakeID = model.SelectedID.FirstOrDefault();
                     vehicleModelService.CreateVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model));
                     return RedirectToAction("VehicleModelList");
                 }
@@ -52,15 +50,15 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             return RedirectToAction("Create");
         }
-        public ActionResult Delete(int? Id)
+        public ActionResult Delete(int? ID)
         {
-            if (Id == null)
+            if (ID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             else
             {
-                var vehicleModelWithID = vehicleModelService.FindVehicleModelWithID(Id);
+                var vehicleModelWithID = vehicleModelService.FindVehicleModelWithID(ID ?? 0);
                 if (vehicleModelWithID == null)
                 {
                     return HttpNotFound();
@@ -81,17 +79,17 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 ModelState.AddModelError("", "Something went wrong! Can't delete VehicleMake.");
             }
-            return RedirectToAction("Delete", model.Id);
+            return RedirectToAction("Delete", model.ID);
         }
-        public ActionResult Update(int? Id)
+        public ActionResult Update(int? ID)
         {
-            if (Id == null)
+            if (ID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             else
             {
-                var vehicleModelWithID = vehicleModelService.FindVehicleModelWithID(Id);
+                var vehicleModelWithID = vehicleModelService.FindVehicleModelWithID(ID ?? 0);
                 if (vehicleModelWithID == null)
                 {
                     return HttpNotFound();
@@ -101,7 +99,7 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update([Bind(Include = "Id,MakeId,Name,Abrv")] ModelViewModel model)
+        public ActionResult Update([Bind(Include = "ID,MakeID,Name,Abrv")] ModelViewModel model)
         {
             try
             {
@@ -115,7 +113,7 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 ModelState.AddModelError("", "Something went wrong! Can't update VehicleModel.");
             }
-            return RedirectToAction("Update", model.Id);
+            return RedirectToAction("Update", model.ID);
         }
     }
 }

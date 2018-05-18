@@ -15,7 +15,7 @@ namespace VehicleMonoProject.Service
             VehicleModels = new HashSet<VehicleModel>();
         }
 
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         public string Name { get; set; }
 

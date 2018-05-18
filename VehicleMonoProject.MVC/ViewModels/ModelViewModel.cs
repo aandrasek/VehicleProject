@@ -7,8 +7,8 @@ namespace VehicleMonoProject.MVC.ViewModels
 {
     public class ModelViewModel
     {
-        public int Id { get; set; }
-        public int MakeId { get; set; }
+        public int ID { get; set; }
+        public int MakeID { get; set; }
         public string Name { get; set; }
         public string Abrv { get; set; }
     }

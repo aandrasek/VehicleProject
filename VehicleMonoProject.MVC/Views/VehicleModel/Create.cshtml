@@ -14,9 +14,9 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MakeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.MakeID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(c => c.SelectedId, Model.Items, new { @class = "listbox selectedid" })
+                @Html.ListBoxFor(c => c.SelectedID, Model.Items, new { @class = "listbox selectedid" })
             </div>
         </div>
 

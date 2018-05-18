@@ -14,18 +14,18 @@ namespace VehicleMonoProject.Common
         public int PageSize { get; set; }
         public int RowCount { get; set; }
 
-        public static PagedResult<T> GetPagedResultForQuery(IQueryable<T> query, int page, int pageSize)
+        public static PagedResult<T> GetPagedResultForList(IList<T> vehicleList, int page, int pageSize)
         {
             var result = new PagedResult<T>
             {
                 CurrentPage = page,
                 PageSize = pageSize,
-                RowCount = query.Count()
+                RowCount = vehicleList.Count()
             };
             var pageCount = (double)result.RowCount / pageSize;
             result.PageCount = (int)Math.Ceiling(pageCount);
             var skip = (page - 1) * pageSize;
-            result.Results = query.Skip(skip).Take(pageSize).ToList();
+            result.Results = vehicleList.Skip(skip).Take(pageSize).ToList();
             return result;
         }
     }
