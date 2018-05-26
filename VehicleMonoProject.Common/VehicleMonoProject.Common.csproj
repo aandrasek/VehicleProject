@@ -40,10 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Filter.cs" />
-    <Compile Include="PagedResult.cs" />
+    <Compile Include="IFilterParameters.cs" />
+    <Compile Include="IPagedResult.cs" />
+    <Compile Include="IPageParameters.cs" />
+    <Compile Include="ISortParameters.cs" />
+    <Compile Include="Parameters\FilterParameters.cs" />
+    <Compile Include="Parameters\PagedResult.cs" />
+    <Compile Include="Parameters\PageParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sort.cs" />
+    <Compile Include="Parameters\SortParameters.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

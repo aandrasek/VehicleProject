@@ -9,9 +9,9 @@ namespace VehicleMonoProject.Service
 
     public partial class VehicleModel: IVehicleModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        public int MakeID { get; set; }
+        public int MakeId { get; set; }
 
         public string Name { get; set; }
 

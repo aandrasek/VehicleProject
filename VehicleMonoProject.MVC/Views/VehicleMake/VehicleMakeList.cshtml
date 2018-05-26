@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VehicleMonoProject.MVC.ViewModels.MakeViewModel>
+﻿@model VehicleMonoProject.MVC.ViewModels.MakeListViewModel
 
 @{
     /**/
@@ -15,18 +15,18 @@
 @using (Html.BeginForm("VehicleMakeList", "VehicleMake"))
 {
 <label>Search(by sort):</label>
-    <input type="text" name="search" value="@ViewBag.search">
+    <input type="text" name="search" value="@Model.search">
 
     <label>Sort:</label>
     <select name="sort">
-        <option value="Name" @(ViewBag.sort == "Name" ? "selected" : "")>Name</option>
-        <option value="Abrv" @(ViewBag.sort == "Abrv" ? "selected" : "")>Abrv</option>
+        <option value="Name" @(Model.sort == "Name" ? "selected" : "")>Name</option>
+        <option value="Abrv" @(Model.sort == "Abrv" ? "selected" : "")>Abrv</option>
     </select>
 
     <label>Direction:</label>
     <select name="direction">
-        <option value="Ascending" @(ViewBag.direction == "Ascending" ? "selected" : "")>Ascending</option>
-        <option value="Descending" @(ViewBag.direction == "Descending" ? "selected" : "")>Descending</option>
+        <option value="Ascending" @(Model.direction == "Ascending" ? "selected" : "")>Ascending</option>
+        <option value="Descending" @(Model.direction == "Descending" ? "selected" : "")>Descending</option>
     </select>
     <input type="submit" class="button" value="Search" />
 }
@@ -42,7 +42,7 @@
         </th>
         <th></th>
     </tr>
-    @foreach(var item in Model)
+    @foreach(var item in Model.vehicleList)
     {
         <tr>
             <td>
@@ -52,23 +52,23 @@
                 @Html.DisplayFor(modelItem => item.Abrv)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Update", "VehicleMake", new { ID = item.ID }, null) |
-                @Html.ActionLink("Delete", "Delete", "VehicleMake", new { ID = item.ID }, null)
+                @Html.ActionLink("Edit", "Update", "VehicleMake", new { ID = item.Id }, null) |
+                @Html.ActionLink("Delete", "Delete", "VehicleMake", new { ID = item.Id }, null)
             </td>
         </tr>
     }
 
 </table>
 <div class="align">
-    @for (int page = 1; page <= ViewBag.pageCount; page++)
+    @for (int page = 1; page <= Model.pageCount; page++)
     {
-        if (page == ViewBag.page)
+        if (page == Model.page)
         {
-            @Html.ActionLink(page.ToString(), "VehicleMakeList", "VehicleMake", new { search = ViewBag.search, page = page, sort = ViewBag.sort, direction = ViewBag.direction }, new { @class = "pagenumber currentpage" })
+            @Html.ActionLink(page.ToString(), "VehicleMakeList", "VehicleMake", new { search = Model.search, page = page, sort = Model.sort, direction = Model.direction }, new { @class = "pagenumber currentpage" })
         }
         else
         {
-            @Html.ActionLink(page.ToString(), "VehicleMakeList", "VehicleMake", new { search = ViewBag.search, page = page, sort = ViewBag.sort, direction = ViewBag.direction }, new { @class = "pagenumber" })
+            @Html.ActionLink(page.ToString(), "VehicleMakeList", "VehicleMake", new { search = Model.search, page = page, sort = Model.sort, direction = Model.direction }, new { @class = "pagenumber" })
 
         }
 

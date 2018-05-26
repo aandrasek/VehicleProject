@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using VehicleMonoProject.Common.Parameters;
 using VehicleMonoProject.MVC.ViewModels;
 using VehicleMonoProject.Service;
 using VehicleMonoProject.Service.Common;
@@ -17,13 +18,11 @@ namespace VehicleMonoProject.MVC.Controllers
 
         public ActionResult VehicleMakeList(int? page, string sort, string direction, string search)
         {
-            var vehicleMakeList = vehicleMakeService.ReadVehicleMake(sort, search, direction, page,3);
-            ViewBag.page = page ?? 1;
-            ViewBag.pageCount = vehicleMakeList.PageCount;
-            ViewBag.sort = sort;
-            ViewBag.search = search;
-            ViewBag.direction = direction;
-            return View(AutoMapper.Mapper.Map<IList<MakeViewModel>>(vehicleMakeList.Results));
+            var sortParameters = new SortParameters() { sort = sort, direction = direction };
+            var filterParameters = new FilterParameters() { search = search };
+            var pagingParameters = new PageParameters() { page = page ?? 1, pageSize = 3 };
+            var vehicleMakeList = vehicleMakeService.ReadVehicleMake(sortParameters, filterParameters, pagingParameters);
+            return View(AutoMapper.Mapper.Map<MakeListViewModel>(vehicleMakeList));
         }
         public ActionResult Create()
         {
@@ -47,22 +46,14 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             return RedirectToAction("Create");
         }
-        public ActionResult Delete(int? ID)
+        public ActionResult Delete(int? id)
         {
-            if (ID == null)
+            var vehicleMakeWithId = vehicleMakeService.FindVehicleMakeWithId(id ?? 0);
+            if (vehicleMakeWithId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return HttpNotFound();
             }
-            else
-            {
-                var vehicleMakeWithID = vehicleMakeService.FindVehicleMakeWithID(ID ?? 0);
-                if (vehicleMakeWithID == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(AutoMapper.Mapper.Map<MakeViewModel>(vehicleMakeWithID));
-            }
-
+            return View(AutoMapper.Mapper.Map<MakeViewModel>(vehicleMakeWithId));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -77,27 +68,20 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 ModelState.AddModelError("", "Something went wrong! Can't delete VehicleMake.");
             }
-            return RedirectToAction("Delete",make.ID);
+            return RedirectToAction("Delete", make.Id);
         }
-        public ActionResult Update(int? ID)
+        public ActionResult Update(int? id)
         {
-            if (ID == null)
+            var vehicleMakeWithId = vehicleMakeService.FindVehicleMakeWithId(id ?? 0);
+            if (vehicleMakeWithId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return HttpNotFound();
             }
-            else
-            {
-                var vehicleMakeWithID = vehicleMakeService.FindVehicleMakeWithID(ID ?? 0);
-                if (vehicleMakeWithID == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(AutoMapper.Mapper.Map<MakeViewModel>(vehicleMakeWithID));
-            }
+            return View(AutoMapper.Mapper.Map<MakeViewModel>(vehicleMakeWithId));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update([Bind(Include = "ID,Name,Abrv")] MakeViewModel make)
+        public ActionResult Update([Bind(Include = "Id,Name,Abrv")] MakeViewModel make)
         {
             try
             {
@@ -111,7 +95,7 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 ModelState.AddModelError("", "Something went wrong! Can't update VehicleMake.");
             }
-            return RedirectToAction("Update",make.ID);
+            return RedirectToAction("Update", make.Id);
         }
     }
 }

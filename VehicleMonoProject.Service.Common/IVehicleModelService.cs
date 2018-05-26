@@ -10,10 +10,10 @@ namespace VehicleMonoProject.Service.Common
     public interface IVehicleModelService
     {
         void CreateVehicleModel(IVehicleModel model);
-        PagedResult<IVehicleModel> ReadVehicleModel(string sort, string direction, string search, int? page,int pageSize);
+        IPagedResult<IVehicleModel> ReadVehicleModel(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters);
         IList<IVehicleMake> ReadVehicleMake();
         void UpdateVehicleModel(IVehicleModel model);
         void DeleteVehicleModel(IVehicleModel model);
-        IVehicleModel FindVehicleModelWithID(int ID);
+        IVehicleModel FindVehicleModelWithId(int id);
     }
 }

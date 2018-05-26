@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using VehicleMonoProject.Common.Parameters;
 using VehicleMonoProject.MVC.ViewModels;
 using VehicleMonoProject.Service;
 using VehicleMonoProject.Service.Common;
@@ -17,18 +18,16 @@ namespace VehicleMonoProject.MVC.Controllers
 
         public ActionResult VehicleModelList(int? page, string sort, string direction, string search)
         {
-            var vehicleModelList = vehicleModelService.ReadVehicleModel(sort, direction, search, page,3);
-            ViewBag.page = page ?? 1;
-            ViewBag.pageCount = vehicleModelList.PageCount;
-            ViewBag.sort = sort;
-            ViewBag.search = search;
-            ViewBag.direction = direction;
-            return View(AutoMapper.Mapper.Map<IList<ModelViewModel>>(vehicleModelList.Results));
+            var sortParameters = new SortParameters() { sort = sort, direction = direction };
+            var filterParameters = new FilterParameters() { search = search };
+            var pagingParameters = new PageParameters() { page = page ?? 1, pageSize = 3 };
+            var vehicleModelList = vehicleModelService.ReadVehicleModel(sortParameters, filterParameters, pagingParameters);
+            return View(AutoMapper.Mapper.Map<ModelListViewModel>(vehicleModelList));
         }
         public ActionResult Create()
         {
             ListViewModel listViewModel = new ListViewModel();
-            listViewModel.Items = vehicleModelService.ReadVehicleMake().Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.Name });
+            listViewModel.Items = vehicleModelService.ReadVehicleMake().Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name });
             return View(listViewModel);
         }
         [HttpPost]
@@ -39,7 +38,6 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    model.MakeID = model.SelectedID.FirstOrDefault();
                     vehicleModelService.CreateVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model));
                     return RedirectToAction("VehicleModelList");
                 }
@@ -50,21 +48,14 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             return RedirectToAction("Create");
         }
-        public ActionResult Delete(int? ID)
+        public ActionResult Delete(int? id)
         {
-            if (ID == null)
+            var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id ?? 0);
+            if (vehicleModelWithId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return HttpNotFound();
             }
-            else
-            {
-                var vehicleModelWithID = vehicleModelService.FindVehicleModelWithID(ID ?? 0);
-                if (vehicleModelWithID == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(AutoMapper.Mapper.Map<ModelViewModel>(vehicleModelWithID));
-            }
+            return View(AutoMapper.Mapper.Map<ModelViewModel>(vehicleModelWithId));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -79,27 +70,20 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 ModelState.AddModelError("", "Something went wrong! Can't delete VehicleMake.");
             }
-            return RedirectToAction("Delete", model.ID);
+            return RedirectToAction("Delete", model.Id);
         }
-        public ActionResult Update(int? ID)
+        public ActionResult Update(int? id)
         {
-            if (ID == null)
+            var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id ?? 0);
+            if (vehicleModelWithId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return HttpNotFound();
             }
-            else
-            {
-                var vehicleModelWithID = vehicleModelService.FindVehicleModelWithID(ID ?? 0);
-                if (vehicleModelWithID == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(AutoMapper.Mapper.Map<ModelViewModel>(vehicleModelWithID));
-            }
+            return View(AutoMapper.Mapper.Map<ModelViewModel>(vehicleModelWithId));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update([Bind(Include = "ID,MakeID,Name,Abrv")] ModelViewModel model)
+        public ActionResult Update([Bind(Include = "Id,MakeId,Name,Abrv")] ModelViewModel model)
         {
             try
             {
@@ -113,7 +97,7 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 ModelState.AddModelError("", "Something went wrong! Can't update VehicleModel.");
             }
-            return RedirectToAction("Update", model.ID);
+            return RedirectToAction("Update", model.Id);
         }
     }
 }

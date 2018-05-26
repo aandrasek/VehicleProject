@@ -60,3 +60,4 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\De
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.dll
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.pdb
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.Migrations.second.resources
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.Migrations.third.resources
