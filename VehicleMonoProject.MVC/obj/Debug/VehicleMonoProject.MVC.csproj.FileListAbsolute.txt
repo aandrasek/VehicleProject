@@ -308,3 +308,7 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\Micros
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\Microsoft.AI.Web.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\obj\Debug\VehicleMonoProject.MVC.csprojResolveAssemblyReference.cache
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\obj\Debug\VehicleMonoProject.MVC.csproj.CoreCompileInputs.cache
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\PagedList.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\PagedList.Mvc.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\PagedList.xml
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\PagedList.Mvc.xml

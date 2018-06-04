@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using VehicleMonoProject.MVC.ViewModels;
-using VehicleMonoProject.Service;
+using VehicleMonoProject.Service.DAL;
 using VehicleMonoProject.Service.Common;
 
 namespace VehicleMonoProject.MVC.App_Start

@@ -1,4 +1,6 @@
-﻿@model VehicleMonoProject.MVC.ViewModels.ModelListViewModel
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<VehicleMonoProject.MVC.ViewModels.ModelViewModel>
 
 @{
     ViewBag.Title = "VehicleModelList";
@@ -12,19 +14,19 @@
 @using (Html.BeginForm("VehicleModelList", "VehicleModel"))
 {
     <label>Search(by sort):</label>
-    <input type="text" name="search" value="@Model.search">
+    <input type="text" name="search" value="@ViewBag.search">
 
     <label>Sort:</label>
     <select name="sort">
-        <option value="MakeId" @(Model.sort == "MakeId" ? "selected" : "")>MakeId</option>
-        <option value="Name" @(Model.sort == "Name" ? "selected" : "")>Name</option>
-        <option value="Abrv" @(Model.sort == "Abrv" ? "selected" : "")>Abrv</option>
+        <option value="MakeId" @(ViewBag.sort == "MakeId" ? "selected" : "")>MakeId</option>
+        <option value="Name" @(ViewBag.sort == "Name" ? "selected" : "")>Name</option>
+        <option value="Abrv" @(ViewBag.sort == "Abrv" ? "selected" : "")>Abrv</option>
     </select>
 
     <label>Direction:</label>
     <select name="direction">
-        <option value="Ascending" @(Model.direction == "Ascending" ? "selected" : "")>Ascending</option>
-        <option value="Descending" @(Model.direction == "Descending" ? "selected" : "")>Descending</option>
+        <option value="Ascending" @(ViewBag.direction == "Ascending" ? "selected" : "")>Ascending</option>
+        <option value="Descending" @(ViewBag.direction == "Descending" ? "selected" : "")>Descending</option>
     </select>
     <input type="submit" class="button" value="Search" />
 }
@@ -43,7 +45,7 @@
         </th>
         <th></th>
     </tr>
-    @foreach(var item in Model.vehicleList)
+    @foreach (var item in Model)
     {
         <tr>
             <td>
@@ -64,18 +66,10 @@
 
 </table>
 <div class="align">
-    @for (int page = 1; page <= Model.pageCount; page++)
-    {
-        if (page == Model.page)
-        {
-            @Html.ActionLink(page.ToString(), "VehicleModelList", "VehicleModel", new { search = Model.search, page = page, sort = Model.sort, direction = Model.direction }, new { @class = "pagenumber currentpage" })
-        }
-        else
-        {
-            @Html.ActionLink(page.ToString(), "VehicleModelList", "VehicleModel", new { search = Model.search, page = page, sort = Model.sort, direction = Model.direction }, new { @class = "pagenumber" })
-
-        }
-
-    }
+    <div class="row">
+        <div class="page-list">
+            @Html.PagedListPager(Model, page => Url.Action("VehicleModelList", new { page, search = ViewBag.search, sort = ViewBag.sort, direction = ViewBag.direction }))
+        </div>
+    </div>
 </div>
 

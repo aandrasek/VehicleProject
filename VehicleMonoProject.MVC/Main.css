@@ -1,14 +1,3 @@
 ﻿.align {
     text-align: center;
 }
-
-.pagenumber {
-    font-size: 20px;
-    color: #000000;
-    padding: 10px;
-}
-
-.currentpage {
-    color: #0094ff;
-    font-weight: bold;
-}

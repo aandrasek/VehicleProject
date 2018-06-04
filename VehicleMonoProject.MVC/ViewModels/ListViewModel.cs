@@ -8,6 +8,6 @@ namespace VehicleMonoProject.MVC.ViewModels
 {
     public class ListViewModel : ModelViewModel
     {
-        public IEnumerable<SelectListItem> Items { get; set; }
+        public IList<SelectListItem> Items { get; set; }
     }
 }

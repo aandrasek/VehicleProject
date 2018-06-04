@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,7 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using VehicleMonoProject.Common.Parameters;
 using VehicleMonoProject.MVC.ViewModels;
-using VehicleMonoProject.Service;
+using VehicleMonoProject.Service.Services;
+using VehicleMonoProject.Service.DAL;
 using VehicleMonoProject.Service.Common;
 
 namespace VehicleMonoProject.MVC.Controllers
@@ -18,16 +20,20 @@ namespace VehicleMonoProject.MVC.Controllers
 
         public ActionResult VehicleModelList(int? page, string sort, string direction, string search)
         {
-            var sortParameters = new SortParameters() { sort = sort, direction = direction };
-            var filterParameters = new FilterParameters() { search = search };
-            var pagingParameters = new PageParameters() { page = page ?? 1, pageSize = 3 };
-            var vehicleModelList = vehicleModelService.ReadVehicleModel(sortParameters, filterParameters, pagingParameters);
-            return View(AutoMapper.Mapper.Map<ModelListViewModel>(vehicleModelList));
+            var sortParameters = new SortParameters() { Sort = sort, Direction = direction };
+            var filterParameters = new FilterParameters() { Search = search };
+            var pagingParameters = new PageParameters() { Page = page ?? 1, PageSize = 3 };
+            var vehicleModelList = vehicleModelService.GetVehicleModelPaged(sortParameters, filterParameters, pagingParameters);
+            ViewBag.search = search;
+            ViewBag.sort = sort;
+            ViewBag.direction = direction;
+            var modelListViewModel = AutoMapper.Mapper.Map<IEnumerable<ModelViewModel>>(vehicleModelList);
+            return View(new StaticPagedList<ModelViewModel>(modelListViewModel, vehicleModelList.GetMetaData()));
         }
         public ActionResult Create()
         {
             ListViewModel listViewModel = new ListViewModel();
-            listViewModel.Items = vehicleModelService.ReadVehicleMake().Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name });
+            listViewModel.Items = vehicleModelService.SelectListItems();
             return View(listViewModel);
         }
         [HttpPost]
@@ -50,6 +56,10 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         public ActionResult Delete(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id ?? 0);
             if (vehicleModelWithId == null)
             {
@@ -74,6 +84,10 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         public ActionResult Update(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id ?? 0);
             if (vehicleModelWithId == null)
             {
