@@ -10,7 +10,6 @@ using VehicleMonoProject.Common.Parameters;
 using VehicleMonoProject.MVC.ViewModels;
 using VehicleMonoProject.Service.Services;
 using VehicleMonoProject.Service.DAL;
-using VehicleMonoProject.Service.Common;
 
 namespace VehicleMonoProject.MVC.Controllers
 {
@@ -59,12 +58,15 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleMakeWithId = vehicleMakeService.FindVehicleMakeWithId(id ?? 0);
-            if (vehicleMakeWithId == null)
+            else
             {
-                return HttpNotFound();
+                var vehicleMakeWithId = vehicleMakeService.FindVehicleMakeWithId(id);
+                if (vehicleMakeWithId == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(AutoMapper.Mapper.Map<MakeViewModel>(vehicleMakeWithId));
             }
-            return View(AutoMapper.Mapper.Map<MakeViewModel>(vehicleMakeWithId));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -87,12 +89,15 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleMakeWithId = vehicleMakeService.FindVehicleMakeWithId(id ?? 0);
-            if (vehicleMakeWithId == null)
+            else
             {
-                return HttpNotFound();
+                var vehicleMakeWithId = vehicleMakeService.FindVehicleMakeWithId(id);
+                if (vehicleMakeWithId == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(AutoMapper.Mapper.Map<MakeViewModel>(vehicleMakeWithId));
             }
-            return View(AutoMapper.Mapper.Map<MakeViewModel>(vehicleMakeWithId));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using VehicleMonoProject.MVC.ViewModels;
 using VehicleMonoProject.Service.DAL;
-using VehicleMonoProject.Service.Common;
+using VehicleMonoProject.Service.Common.EntityCommon;
 
 namespace VehicleMonoProject.MVC.App_Start
 {

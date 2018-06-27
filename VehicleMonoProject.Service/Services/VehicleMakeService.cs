@@ -6,7 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleMonoProject.Common.ParametersCommon;
-using VehicleMonoProject.Service.Common;
+using VehicleMonoProject.Service.Common.ServiceCommon;
+using VehicleMonoProject.Service.Common.EntityCommon;
 using VehicleMonoProject.Service.DAL;
 
 namespace VehicleMonoProject.Service.Services
@@ -38,14 +39,13 @@ namespace VehicleMonoProject.Service.Services
 
             if (!string.IsNullOrEmpty(filterParameters.Search))
             {
-                var propertyInfo = vehicleMakeList.FirstOrDefault().GetType().GetProperty(sortParameters.Sort);
-                vehicleMakeList = vehicleMakeList.Where(i => propertyInfo.GetValue(i).ToString().ToUpper().Contains(filterParameters.Search.ToUpper()));
+                vehicleMakeList = vehicleMakeList.Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper()));
             }
             if (sortParameters.Direction == "Descending")
             {
                 vehicleMakeList = vehicleMakeList.Reverse();
             }
-            return vehicleMakeList.ToList().ToPagedList(pageParameters.Page, pageParameters.PageSize);
+            return vehicleMakeList.ToPagedList(pageParameters.Page, pageParameters.PageSize);
         }
         public void UpdateVehicleMake(IVehicleMake make)
         {
@@ -57,7 +57,7 @@ namespace VehicleMonoProject.Service.Services
             context.VehicleMakes.Remove(context.VehicleMakes.Where(c => c.Id == make.Id).FirstOrDefault());
             context.SaveChanges();
         }
-        public IVehicleMake FindVehicleMakeWithId(int id)
+        public IVehicleMake FindVehicleMakeWithId(int? id)
         {
             return context.VehicleMakes.Where(c => c.Id == id).FirstOrDefault();
         }

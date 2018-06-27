@@ -10,7 +10,6 @@ using VehicleMonoProject.Common.Parameters;
 using VehicleMonoProject.MVC.ViewModels;
 using VehicleMonoProject.Service.Services;
 using VehicleMonoProject.Service.DAL;
-using VehicleMonoProject.Service.Common;
 
 namespace VehicleMonoProject.MVC.Controllers
 {
@@ -32,8 +31,10 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         public ActionResult Create()
         {
-            ListViewModel listViewModel = new ListViewModel();
-            listViewModel.Items = vehicleModelService.SelectListItems();
+            ListViewModel listViewModel = new ListViewModel()
+            {
+                Items = AutoMapper.Mapper.Map<IList<SelectListItem>>(vehicleModelService.GetVehicleMake().Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }))
+            };
             return View(listViewModel);
         }
         [HttpPost]
@@ -60,12 +61,15 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id ?? 0);
-            if (vehicleModelWithId == null)
+            else
             {
-                return HttpNotFound();
+                var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id);
+                if (vehicleModelWithId == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(AutoMapper.Mapper.Map<ModelViewModel>(vehicleModelWithId));
             }
-            return View(AutoMapper.Mapper.Map<ModelViewModel>(vehicleModelWithId));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -88,12 +92,16 @@ namespace VehicleMonoProject.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id ?? 0);
-            if (vehicleModelWithId == null)
+            else
             {
-                return HttpNotFound();
+                var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id);
+                if (vehicleModelWithId == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(AutoMapper.Mapper.Map<ModelViewModel>(vehicleModelWithId));
             }
-            return View(AutoMapper.Mapper.Map<ModelViewModel>(vehicleModelWithId));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -5,9 +5,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using VehicleMonoProject.Common.ParametersCommon;
-using VehicleMonoProject.Service.Common;
+using VehicleMonoProject.Service.Common.ServiceCommon;
+using VehicleMonoProject.Service.Common.EntityCommon;
 using VehicleMonoProject.Service.DAL;
 
 namespace VehicleMonoProject.Service.Services
@@ -25,37 +25,35 @@ namespace VehicleMonoProject.Service.Services
         public IPagedList<IVehicleModel> GetVehicleModelPaged(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
         {
             var vehicleModelList = context.VehicleModels.AsEnumerable();
-                switch (sortParameters.Sort)
-                {
-                    case "Name":
-                        vehicleModelList = vehicleModelList.OrderBy(c => c.Name);
-                        break;
-                    case "MakeId":
-                        vehicleModelList = vehicleModelList.OrderBy(c => c.MakeId);
-                        break;
-                    case "Abrv":
-                        vehicleModelList = vehicleModelList.OrderBy(c => c.Abrv);
-                        break;
-                    default:
-                        vehicleModelList = vehicleModelList.OrderBy(c => c.Id);
-                        break;
-                }
+            switch (sortParameters.Sort)
+            {
+                case "Name":
+                    vehicleModelList = vehicleModelList.OrderBy(c => c.Name);
+                    break;
+                case "MakeId":
+                    vehicleModelList = vehicleModelList.OrderBy(c => c.MakeId);
+                    break;
+                case "Abrv":
+                    vehicleModelList = vehicleModelList.OrderBy(c => c.Abrv);
+                    break;
+                default:
+                    vehicleModelList = vehicleModelList.OrderBy(c => c.Id);
+                    break;
+            }
             if (!string.IsNullOrEmpty(filterParameters.Search))
             {
-                var propertyInfo = vehicleModelList.FirstOrDefault().GetType().GetProperty(sortParameters.Sort);
-                vehicleModelList = vehicleModelList.Where(i => propertyInfo.GetValue(i).ToString().ToUpper().Contains(filterParameters.Search.ToUpper()));
+                vehicleModelList = vehicleModelList.Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper()));
             }
             if (sortParameters.Direction == "Descending")
             {
                 vehicleModelList = vehicleModelList.Reverse();
             }
 
-            return vehicleModelList.ToList().ToPagedList(pageParameters.Page, pageParameters.PageSize);
+            return vehicleModelList.ToPagedList(pageParameters.Page, pageParameters.PageSize);
         }
-        public IList<SelectListItem> SelectListItems()
+        public IEnumerable<IVehicleMake> GetVehicleMake()
         {
-            var selectListItem = context.VehicleMakes.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name });
-            return AutoMapper.Mapper.Map<IList<SelectListItem>>(selectListItem);
+            return context.VehicleMakes.AsEnumerable();
         }
         public void UpdateVehicleModel(IVehicleModel model)
         {
@@ -67,7 +65,7 @@ namespace VehicleMonoProject.Service.Services
             context.VehicleModels.Remove(context.VehicleModels.Where(c => c.Id == model.Id).FirstOrDefault());
             context.SaveChanges();
         }
-        public IVehicleModel FindVehicleModelWithId(int id)
+        public IVehicleModel FindVehicleModelWithId(int? id)
         {
             return context.VehicleModels.Where(c => c.Id == id).FirstOrDefault();
         }

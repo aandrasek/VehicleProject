@@ -111,6 +111,10 @@
     <Compile Include="Migrations\201805261325463_third.Designer.cs">
       <DependentUpon>201805261325463_third.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806271546483_fourth.cs" />
+    <Compile Include="Migrations\201806271546483_fourth.Designer.cs">
+      <DependentUpon>201806271546483_fourth.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DAL\VehicleDB.cs" />
@@ -157,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805261325463_third.resx">
       <DependentUpon>201805261325463_third.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806271546483_fourth.resx">
+      <DependentUpon>201806271546483_fourth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

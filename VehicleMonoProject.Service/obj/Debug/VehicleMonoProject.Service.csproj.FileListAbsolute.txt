@@ -78,3 +78,4 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\De
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\System.Web.WebPages.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.Migrations.fourth.resources

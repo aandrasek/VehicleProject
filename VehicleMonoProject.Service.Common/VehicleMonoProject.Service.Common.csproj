@@ -64,10 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IVehicleMake.cs" />
-    <Compile Include="IVehicleMakeService.cs" />
-    <Compile Include="IVehicleModel.cs" />
-    <Compile Include="IVehicleModelService.cs" />
+    <Compile Include="EntityCommon\IVehicleMake.cs" />
+    <Compile Include="ServiceCommon\IVehicleMakeService.cs" />
+    <Compile Include="EntityCommon\IVehicleModel.cs" />
+    <Compile Include="ServiceCommon\IVehicleModelService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

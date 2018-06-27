@@ -5,7 +5,7 @@ namespace VehicleMonoProject.Service.DAL
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using VehicleMonoProject.Service.Common;
+    using VehicleMonoProject.Service.Common.EntityCommon;
 
     public partial class VehicleMake:IVehicleMake
     {
@@ -16,7 +16,7 @@ namespace VehicleMonoProject.Service.DAL
         }
 
         public int Id { get; set; }
-
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
         public string Abrv { get; set; }
