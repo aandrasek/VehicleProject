@@ -1,0 +1,8 @@
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Model.Common\bin\Debug\VehicleMonoProject.Model.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Model.Common\bin\Debug\VehicleMonoProject.Model.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Model.Common\bin\Debug\Ninject.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Model.Common\bin\Debug\Ninject.xml
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Model.Common\obj\Debug\VehicleMonoProject.Model.Common.csprojResolveAssemblyReference.cache
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Model.Common\obj\Debug\VehicleMonoProject.Model.Common.csproj.CoreCompileInputs.cache
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Model.Common\obj\Debug\VehicleMonoProject.Model.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Model.Common\obj\Debug\VehicleMonoProject.Model.Common.pdb

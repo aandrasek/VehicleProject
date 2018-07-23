@@ -7,15 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using VehicleMonoProject.Common.Parameters;
+using VehicleMonoProject.Model;
 using VehicleMonoProject.MVC.ViewModels;
-using VehicleMonoProject.Service.Services;
-using VehicleMonoProject.Service.DAL;
+using VehicleMonoProject.Service.Common;
 
 namespace VehicleMonoProject.MVC.Controllers
 {
     public class VehicleModelController : Controller
     {
-        VehicleModelService vehicleModelService = new VehicleModelService();
+        IVehicleModelService vehicleModelService;
+
+        public VehicleModelController(IVehicleModelService vehicleModelService)
+        {
+            this.vehicleModelService = vehicleModelService;
+        }
 
         public ActionResult VehicleModelList(int? page, string sort, string direction, string search)
         {
@@ -33,19 +38,19 @@ namespace VehicleMonoProject.MVC.Controllers
         {
             ListViewModel listViewModel = new ListViewModel()
             {
-                Items = AutoMapper.Mapper.Map<IList<SelectListItem>>(vehicleModelService.GetVehicleMake().Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }))
+                Items = AutoMapper.Mapper.Map<IList<SelectListItem>>(vehicleModelService.GetVehicleMakes().Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }))
             };
             return View(listViewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ListViewModel model)
+        public ActionResult Create(ListViewModel model, HttpPostedFileBase image)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    vehicleModelService.CreateVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model));
+                    vehicleModelService.CreateVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model),image);
                     return RedirectToAction("VehicleModelList");
                 }
             }
@@ -73,16 +78,19 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(ModelViewModel model)
+        public ActionResult Delete([Bind(Include = "Id,Name,Abrv,Image")] ModelViewModel model)
         {
             try
             {
-                vehicleModelService.DeleteVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model));
-                return View("Removal");
+                if (ModelState.IsValid)
+                {
+                    vehicleModelService.DeleteVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model));
+                    return RedirectToAction("VehicleModelList");
+                }
             }
-            catch (Exception)
+            catch (DataException)
             {
-                ModelState.AddModelError("", "Something went wrong! Can't delete VehicleMake.");
+                ModelState.AddModelError("", "Something went wrong! Can't delete VehicleModel.");
             }
             return RedirectToAction("Delete", model.Id);
         }

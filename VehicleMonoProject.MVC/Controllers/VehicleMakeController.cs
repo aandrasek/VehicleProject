@@ -7,15 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using VehicleMonoProject.Common.Parameters;
+using VehicleMonoProject.Model;
 using VehicleMonoProject.MVC.ViewModels;
-using VehicleMonoProject.Service.Services;
-using VehicleMonoProject.Service.DAL;
+using VehicleMonoProject.Service.Common;
 
 namespace VehicleMonoProject.MVC.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        VehicleMakeService vehicleMakeService = new VehicleMakeService();
+        IVehicleMakeService vehicleMakeService;
+
+        public VehicleMakeController(IVehicleMakeService vehicleMakeService)
+        {
+            this.vehicleMakeService = vehicleMakeService;
+        }
 
         public ActionResult VehicleMakeList(int? page, string sort, string direction, string search)
         {
@@ -36,13 +41,13 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Abrv")] MakeViewModel make)
+        public ActionResult Create([Bind(Include = "Name,Abrv")] MakeViewModel make, HttpPostedFileBase image)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    vehicleMakeService.CreateVehicleMake(AutoMapper.Mapper.Map<VehicleMake>(make));
+                    vehicleMakeService.CreateVehicleMake(AutoMapper.Mapper.Map<VehicleMake>(make),image);
                     return RedirectToAction("VehicleMakeList");
                 }
             }
@@ -70,14 +75,17 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(MakeViewModel make)
+        public ActionResult Delete([Bind(Include = "Id,Name,Abrv,Image")] MakeViewModel make)
         {
             try
             {
-                vehicleMakeService.DeleteVehicleMake(AutoMapper.Mapper.Map<VehicleMake>(make));
-                return View("Removal");
+                if (ModelState.IsValid)
+                {
+                    vehicleMakeService.DeleteVehicleMake(AutoMapper.Mapper.Map<VehicleMake>(make));
+                    return RedirectToAction("VehicleMakeList");
+                }
             }
-            catch (Exception)
+            catch (DataException)
             {
                 ModelState.AddModelError("", "Something went wrong! Can't delete VehicleMake.");
             }

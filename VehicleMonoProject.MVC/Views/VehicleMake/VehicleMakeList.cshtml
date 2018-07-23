@@ -6,55 +6,70 @@
 
     ViewBag.Title = "VehicleMakeList";
 }
-<link rel="stylesheet" type="text/css" href="~/Main.css">
 
-<h3>VehicleMake List</h3>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<link rel="stylesheet" type="text/css" href="~/style.css">
+
+<h3 class="align">VehicleMake List</h3>
 
 @using (Html.BeginForm("VehicleMakeList", "VehicleMake"))
 {
-    <label>Search(by name):</label>
-    <input type="text" name="search" value="@ViewBag.search">
-
-    <label>Sort:</label>
-    <select name="sort">
-        <option value="Name" @(ViewBag.sort == "Name" ? "selected" : "")>Name</option>
-        <option value="Abrv" @(ViewBag.sort == "Abrv" ? "selected" : "")>Abrv</option>
-    </select>
-
-    <label>Direction:</label>
-    <select name="direction">
-        <option value="Ascending" @(ViewBag.direction == "Ascending" ? "selected" : "")>Ascending</option>
-        <option value="Descending" @(ViewBag.direction == "Descending" ? "selected" : "")>Descending</option>
-    </select>
-    <input type="submit" class="button" value="Search" />
+    <div class="filter">
+        <div class="filterpart">
+            <label>Search(by name):</label>
+            <input class="roundcorners" type="text" name="search" value="@ViewBag.search" placeholder="Search">
+        </div>
+        <div class="filterpart">
+            <label>Sort:</label>
+            <select name="sort" class="roundcorners">
+                <option value="Name" @(ViewBag.sort == "Name" ? "selected" : "")>Name</option>
+                <option value="Abrv" @(ViewBag.sort == "Abrv" ? "selected" : "")>Abrv</option>
+            </select>
+        </div>
+        <div class="filterpart">
+            <label>Direction:</label>
+            <select name="direction" class="roundcorners">
+                <option value="Ascending" @(ViewBag.direction == "Ascending" ? "selected" : "")>Ascending</option>
+                <option value="Descending" @(ViewBag.direction == "Descending" ? "selected" : "")>Descending</option>
+            </select>
+        </div>
+        <div class="filterpart">
+            <input type="submit" class="buttonsearch roundcorners" value="Search" />
+        </div>
+    </div>
 }
 <br />
 
-<table class="table">
+<table class="table align">
     <tr>
+        <th>
+        </th>
         <th>
             Name
         </th>
         <th>
             Abrv
         </th>
-        <th></th>
+        <th>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "buttoncreate" })
+        </th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                <img src="~/Images/VehicleMakeImages/@item.Image" alt="@item.Name" />
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Abrv)
+                <span> @Html.DisplayFor(modelItem => item.Name)</span>
             </td>
             <td>
-                @Html.ActionLink("Edit", "Update", "VehicleMake", new { ID = item.Id }, null) |
-                @Html.ActionLink("Delete", "Delete", "VehicleMake", new { ID = item.Id }, null)
+                <span> @Html.DisplayFor(modelItem => item.Abrv)</span>
+            </td>
+            <td>
+                <span>
+                    @Html.ActionLink("Edit", "Update", "VehicleMake", new { ID = item.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "VehicleMake", new { ID = item.Id }, null)
+                </span>
             </td>
         </tr>
     }

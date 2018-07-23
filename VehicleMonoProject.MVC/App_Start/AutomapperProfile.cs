@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using VehicleMonoProject.DAL;
+using VehicleMonoProject.Model;
+using VehicleMonoProject.Model.Common;
 using VehicleMonoProject.MVC.ViewModels;
-using VehicleMonoProject.Service.DAL;
-using VehicleMonoProject.Service.Common.EntityCommon;
 
 namespace VehicleMonoProject.MVC.App_Start
 {
@@ -13,8 +14,15 @@ namespace VehicleMonoProject.MVC.App_Start
     {
         public AutomapperProfile()
         {
-            CreateMap<VehicleMake, IVehicleMake>().ReverseMap();
-            CreateMap<VehicleModel, IVehicleModel>().ReverseMap();
+
+            CreateMap<VehicleMakeEntity, VehicleMake>().ReverseMap();
+            CreateMap<VehicleMakeEntity, IVehicleMake>().ReverseMap();
+            CreateMap<IVehicleMake, VehicleMake>().ReverseMap();
+
+            CreateMap<VehicleModelEntity, VehicleModel>().ReverseMap();
+            CreateMap<VehicleModelEntity, IVehicleModel>().ReverseMap();
+            CreateMap<IVehicleModel, VehicleModel>().ReverseMap();
+
             CreateMap<VehicleMake, MakeViewModel>().ReverseMap();
             CreateMap<VehicleModel, ModelViewModel>().ReverseMap();
             CreateMap<VehicleModel, ListViewModel>().ReverseMap();

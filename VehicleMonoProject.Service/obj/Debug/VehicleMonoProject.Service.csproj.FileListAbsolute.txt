@@ -53,14 +53,9 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\De
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\EntityFramework.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.csprojResolveAssemblyReference.cache
-C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.Migrations.InitialCreate.resources
-C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.Migrations.first.resources
-C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.csproj.GenerateResource.Cache
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.csproj.CoreCompileInputs.cache
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.dll
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.pdb
-C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.Migrations.second.resources
-C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.Migrations.third.resources
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\PagedList.dll
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\PagedList.Mvc.dll
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\PagedList.xml
@@ -78,4 +73,11 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\De
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\System.Web.WebPages.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\obj\Debug\VehicleMonoProject.Service.Migrations.fourth.resources
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\Ninject.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\VehicleMonoProject.Model.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\VehicleMonoProject.Model.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\VehicleMonoProject.Repository.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\VehicleMonoProject.Model.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\VehicleMonoProject.Model.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\VehicleMonoProject.Repository.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Service\bin\Debug\Ninject.xml

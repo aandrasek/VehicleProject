@@ -10,3 +10,5 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\obj\Deb
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\obj\Debug\VehicleMonoProject.Common.csproj.CoreCompileInputs.cache
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\obj\Debug\VehicleMonoProject.Common.dll
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\obj\Debug\VehicleMonoProject.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\bin\Debug\Ninject.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\bin\Debug\Ninject.xml

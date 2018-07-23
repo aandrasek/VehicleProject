@@ -1,0 +1,119 @@
+﻿body {
+}
+
+.navbar {
+    background: #000000;
+    border: none;
+}
+
+.navbar-nav {
+    float: right;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+}
+
+    .navbar-inverse .navbar-brand:hover {
+        color: #3f85b8;
+    }
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover {
+        color: #3f85b8;
+    }
+
+.nav navbar-nav {
+    float: right;
+}
+
+.align {
+    text-align: center;
+}
+
+.filter {
+    width: 60%;
+    margin: auto;
+}
+
+.filterpart {
+    margin: 15px 5px;
+    float: left;
+}
+
+    .filterpart select {
+        height: 25px;
+    }
+
+.roundcorners {
+    border-radius: 5px;
+    border: 1px #dddddd solid;
+}
+
+    .roundcorners:focus {
+        outline: none;
+        border: 1px #3f85b8 solid;
+    }
+
+.buttonsearch {
+    color: #ffffff;
+    background: #3f85b8;
+    border: 1px #3f85b8 solid;
+    font-weight: bold;
+}
+
+    .buttonsearch:hover {
+        background: #ffffff;
+        color: #3f85b8;
+        text-decoration: none;
+    }
+
+.buttoncreate {
+    font-size: 13px;
+    color: #ffffff;
+    background: #3f85b8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px #3f85b8 solid;
+}
+
+    .buttoncreate:hover {
+        background: #ffffff;
+        color: #3f85b8;
+        text-decoration: none;
+    }
+
+.table {
+    font-size: 18px;
+}
+
+    .table img {
+        width: 70px;
+        height: 70px;
+    }
+
+span {
+    vertical-align: middle;
+    line-height: 70px;
+}
+
+th {
+    text-align: center;
+}
+.buttonfile {
+    margin-top:5px;
+}
+footer {
+    text-align: center;
+    font-size: 15px;
+    background: #3f85b8;
+    color: #ffffff;
+    padding: 25px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

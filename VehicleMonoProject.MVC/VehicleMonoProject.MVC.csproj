@@ -59,6 +59,18 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.0\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -120,6 +132,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -159,6 +174,7 @@
     <Compile Include="App_Start\AutomapperProfile.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\VehicleMakeController.cs" />
     <Compile Include="Controllers\VehicleModelController.cs" />
@@ -178,7 +194,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Main.css" />
+    <Content Include="Images\VehicleMakeImages\default1.png" />
+    <Content Include="Images\VehicleModelImages\default2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -195,6 +212,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="style.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -237,6 +255,26 @@
     <ProjectReference Include="..\VehicleMonoProject.Common\VehicleMonoProject.Common.csproj">
       <Project>{eca0cd6e-99b2-44a2-a8f2-6c9753fa9356}</Project>
       <Name>VehicleMonoProject.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleMonoProject.DAL\VehicleMonoProject.DAL.csproj">
+      <Project>{19FECAB7-7631-4042-8D8F-4395A1981185}</Project>
+      <Name>VehicleMonoProject.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleMonoProject.Model.Common\VehicleMonoProject.Model.Common.csproj">
+      <Project>{D886F3C4-37FF-4DCA-BF81-4605252A281F}</Project>
+      <Name>VehicleMonoProject.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleMonoProject.Model\VehicleMonoProject.Model.csproj">
+      <Project>{188E0DF2-64F1-4B19-9DC2-D5649191603B}</Project>
+      <Name>VehicleMonoProject.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleMonoProject.Repository.Common\VehicleMonoProject.Repository.Common.csproj">
+      <Project>{5D9DA9B0-636C-41ED-86E9-44A7DD1F5EF2}</Project>
+      <Name>VehicleMonoProject.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleMonoProject.Repository\VehicleMonoProject.Repository.csproj">
+      <Project>{C3F80FF7-7878-40B4-A612-019712A0D381}</Project>
+      <Name>VehicleMonoProject.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\VehicleMonoProject.Service.Common\VehicleMonoProject.Service.Common.csproj">
       <Project>{942DB82C-E076-4686-8B41-1074A81894D3}</Project>

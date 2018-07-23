@@ -33,11 +33,15 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.0\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -64,16 +68,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityCommon\IVehicleMake.cs" />
-    <Compile Include="ServiceCommon\IVehicleMakeService.cs" />
-    <Compile Include="EntityCommon\IVehicleModel.cs" />
-    <Compile Include="ServiceCommon\IVehicleModelService.cs" />
+    <Compile Include="IVehicleMakeService.cs" />
+    <Compile Include="IVehicleModelService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VehicleMonoProject.Common\VehicleMonoProject.Common.csproj">
       <Project>{ECA0CD6E-99B2-44A2-A8F2-6C9753FA9356}</Project>
       <Name>VehicleMonoProject.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleMonoProject.Model.Common\VehicleMonoProject.Model.Common.csproj">
+      <Project>{D886F3C4-37FF-4DCA-BF81-4605252A281F}</Project>
+      <Name>VehicleMonoProject.Model.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
