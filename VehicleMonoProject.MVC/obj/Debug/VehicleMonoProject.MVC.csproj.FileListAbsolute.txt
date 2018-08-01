@@ -333,3 +333,6 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\Ninjec
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\Ninject.Web.Common.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\Ninject.Web.Common.WebHost.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\Ninject.Web.Mvc.xml
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\Castle.Core.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\Ninject.Extensions.Factory.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.MVC\bin\Ninject.Extensions.Factory.xml

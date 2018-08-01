@@ -6,46 +6,50 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleMonoProject.Repository.Common;
 using VehicleMonoProject.DAL;
+using System.Linq.Expressions;
+using VehicleMonoProject.Repository.UOW;
 
 namespace VehicleMonoProject.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly VehicleDB context;
+        IUnitOfWorkFactory uowFactory;
 
-        public GenericRepository(VehicleDB context)
+        public GenericRepository(VehicleDB context, IUnitOfWorkFactory uowFactory)
         {
             this.context = context;
+            this.uowFactory = uowFactory;
         }
-        public T Get(int id)
+        public virtual async Task<T> GetVehicleAsync(int id)
         {
-            return context.Set<T>().Find(id);
+            return await context.Set<T>().FindAsync(id);
         }
-        public IEnumerable<T> GetAll()
+        public virtual async Task<IEnumerable<T>> GetVehiclesAsync(Expression<Func<T, string>> sortExpression, Expression<Func<T, bool>> filterExpression)
         {
-            return context.Set<T>().AsEnumerable();
-        }
-        public void Add(T entity)
-        {
-            context.Set<T>().Add(entity);
-        }
-        public void Delete(T entity)
-        {
-            var vehicleObject = context.Set<T>().Find(GetProperty(entity, "Id"));
-            context.Set<T>().Remove(vehicleObject);
-        }
-        public void Edit(T entity)
-        {
-            context.Entry(entity).State = EntityState.Modified;
-        }
-        object GetProperty<E>(E entity, string propertyName) where E : class
-        {
-            var property = entity.GetType().GetProperty(propertyName);
-            if (property == null)
+            if (filterExpression.ToString() != "c => False")
             {
-                throw new Exception("Entity does not contain property with name '" + propertyName + "'");
+                return await context.Set<T>().Where(filterExpression).ToListAsync();
             }
-            return property.GetValue(entity);
+            return await context.Set<T>().OrderBy(sortExpression).ToListAsync();
+        }
+        public virtual async Task AddAsync(T entity)
+        {
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            await unitOfWork.AddAsync(entity);
+            await unitOfWork.CommitAsync();
+        }
+        public virtual async Task DeleteAsync(T entity)
+        {
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            await unitOfWork.DeleteAsync(entity);
+            await unitOfWork.CommitAsync();
+        }
+        public virtual async Task EditAsync(T entity)
+        {
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            await unitOfWork.UpdateAsync(entity);
+            await unitOfWork.CommitAsync();
         }
     }
 }

@@ -13,11 +13,10 @@ namespace VehicleMonoProject.Service.Common
 {
     public interface IVehicleModelService
     {
-        void CreateVehicleModel(IVehicleModel model, HttpPostedFileBase image);
-        IPagedList<IVehicleModel> GetVehicleModelPaged(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters);
-        IEnumerable<IVehicleMake> GetVehicleMakes();
-        void UpdateVehicleModel(IVehicleModel model);
-        void DeleteVehicleModel(IVehicleModel model);
-        IVehicleModel FindVehicleModelWithId(int? id);
+        Task CreateVehicleModelAsync(IVehicleModel model, HttpPostedFileBase image);
+        Task<IPagedList<IVehicleModel>> GetVehicleModelPagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters);
+        Task UpdateVehicleModelAsync(IVehicleModel model);
+        Task DeleteVehicleModelAsync(IVehicleModel model);
+        Task<IVehicleModel> FindVehicleModelWithIdAsync(int? id);
     }
 }

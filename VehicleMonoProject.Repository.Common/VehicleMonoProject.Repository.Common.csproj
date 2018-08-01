@@ -44,11 +44,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IGenericRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IVehicleMakeRepository.cs" />
     <Compile Include="IVehicleModelRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VehicleMonoProject.Common\VehicleMonoProject.Common.csproj">
+      <Project>{ECA0CD6E-99B2-44A2-A8F2-6C9753FA9356}</Project>
+      <Name>VehicleMonoProject.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VehicleMonoProject.Model.Common\VehicleMonoProject.Model.Common.csproj">
       <Project>{D886F3C4-37FF-4DCA-BF81-4605252A281F}</Project>
       <Name>VehicleMonoProject.Model.Common</Name>

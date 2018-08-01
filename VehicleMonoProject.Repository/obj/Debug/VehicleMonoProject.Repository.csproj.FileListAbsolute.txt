@@ -24,3 +24,5 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository\bin
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository\bin\Debug\System.ValueTuple.dll
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository\bin\Debug\AutoMapper.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository\bin\Debug\System.ValueTuple.xml
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository\bin\Debug\VehicleMonoProject.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository\bin\Debug\VehicleMonoProject.Common.pdb

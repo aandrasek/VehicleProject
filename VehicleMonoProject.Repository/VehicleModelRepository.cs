@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using VehicleMonoProject.Common.ParametersCommon;
 using VehicleMonoProject.DAL;
 using VehicleMonoProject.Model.Common;
 using VehicleMonoProject.Repository.Common;
@@ -11,39 +13,63 @@ namespace VehicleMonoProject.Repository
 {
     public class VehicleModelRepository : IVehicleModelRepository
     {
-        private UnitOfWork unitOfWork = new UnitOfWork();
+        IGenericRepository<VehicleModelEntity> Repository;
 
-        public void AddVehicleModel(IVehicleModel entity)
+        public VehicleModelRepository(IGenericRepository<VehicleModelEntity> repository)
         {
-            unitOfWork.VehicleModels.Add(AutoMapper.Mapper.Map<VehicleModelEntity>(entity));
-            unitOfWork.Save();
+            Repository = repository;
         }
 
-        public void DeleteVehicleModel(IVehicleModel entity)
+        public async Task AddVehicleModelAsync(IVehicleModel entity)
         {
-            unitOfWork.VehicleModels.Delete(AutoMapper.Mapper.Map<VehicleModelEntity>(entity));
-            unitOfWork.Save();
+            
+            await Repository.AddAsync(AutoMapper.Mapper.Map<VehicleModelEntity>(entity));
+           
         }
 
-        public void EditVehicleModel(IVehicleModel entity)
+        public async Task DeleteVehicleModelAsync(IVehicleModel entity)
         {
-            unitOfWork.VehicleModels.Edit(AutoMapper.Mapper.Map<VehicleModelEntity>(entity));
-            unitOfWork.Save();
+            
+            await Repository.DeleteAsync(AutoMapper.Mapper.Map<VehicleModelEntity>(entity));
+           
         }
 
-        public IEnumerable<IVehicleModel> GetAllVehicleModels()
+        public async Task EditVehicleModelAsync(IVehicleModel entity)
         {
-            return AutoMapper.Mapper.Map<IEnumerable<IVehicleModel>>(unitOfWork.VehicleModels.GetAll());
+            
+            await Repository.EditAsync(AutoMapper.Mapper.Map<VehicleModelEntity>(entity));
+           
         }
 
-        public IEnumerable<IVehicleMake> GetAllVehicleMakes()
+        public async Task<IEnumerable<IVehicleModel>> GetVehicleModelsAsync(ISortParameters sortParameters, IFilterParameters filterParameters)
         {
-            return AutoMapper.Mapper.Map<IEnumerable<IVehicleMake>>(unitOfWork.VehicleMakes.GetAll());
+            Expression<Func<VehicleModelEntity, bool>> filterExpression = c => false;
+            Expression<Func<VehicleModelEntity, string>> sortExpression = c => c.Id.ToString();
+            switch (sortParameters.Sort)
+            {
+                case "MakeId":
+                    sortExpression = c => c.MakeId.ToString();
+                    break;
+                case "Name":
+                    sortExpression = c => c.Name;
+                    break;
+                case "Abrv":
+                    sortExpression = c => c.Abrv;
+                    break;
+                default:
+                    break;
+
+            }
+            if (!string.IsNullOrEmpty(filterParameters.Search))
+            {
+                filterExpression = c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper());
+            }
+            return AutoMapper.Mapper.Map<IEnumerable<IVehicleModel>>(await Repository.GetVehiclesAsync(sortExpression, filterExpression));
         }
 
-        public IVehicleModel GetVehicleModel(int id)
-        {
-            return AutoMapper.Mapper.Map<IVehicleModel>(unitOfWork.VehicleModels.Get(id));
+        public async Task<IVehicleModel> GetVehicleModelAsync(int id)
+        {           
+            return AutoMapper.Mapper.Map<IVehicleModel>(await Repository.GetVehicleAsync(id));
         }
     }
 }

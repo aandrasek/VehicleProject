@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using VehicleMonoProject.Common.Parameters;
@@ -16,41 +17,45 @@ namespace VehicleMonoProject.MVC.Controllers
     public class VehicleModelController : Controller
     {
         IVehicleModelService vehicleModelService;
+        IVehicleMakeService vehicleMakeService;
 
-        public VehicleModelController(IVehicleModelService vehicleModelService)
+
+        public VehicleModelController(IVehicleModelService vehicleModelService, IVehicleMakeService vehicleMakeService)
         {
             this.vehicleModelService = vehicleModelService;
+            this.vehicleMakeService = vehicleMakeService;
         }
 
-        public ActionResult VehicleModelList(int? page, string sort, string direction, string search)
+        public async Task<ActionResult> VehicleModelList(int? page, string sort, string direction, string search)
         {
             var sortParameters = new SortParameters() { Sort = sort, Direction = direction };
             var filterParameters = new FilterParameters() { Search = search };
             var pagingParameters = new PageParameters() { Page = page ?? 1, PageSize = 3 };
-            var vehicleModelList = vehicleModelService.GetVehicleModelPaged(sortParameters, filterParameters, pagingParameters);
+            var vehicleModelList = await vehicleModelService.GetVehicleModelPagedAsync(sortParameters, filterParameters, pagingParameters);
             ViewBag.search = search;
             ViewBag.sort = sort;
             ViewBag.direction = direction;
             var modelListViewModel = AutoMapper.Mapper.Map<IEnumerable<ModelViewModel>>(vehicleModelList);
             return View(new StaticPagedList<ModelViewModel>(modelListViewModel, vehicleModelList.GetMetaData()));
         }
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            var vehicleMakeList = await vehicleMakeService.GetSelectListItemAsync();
             ListViewModel listViewModel = new ListViewModel()
             {
-                Items = AutoMapper.Mapper.Map<IList<SelectListItem>>(vehicleModelService.GetVehicleMakes().Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }))
+                Items =  AutoMapper.Mapper.Map<IList<SelectListItem>>(vehicleMakeList.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }))
             };
             return View(listViewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ListViewModel model, HttpPostedFileBase image)
+        public async Task<ActionResult> Create(ListViewModel model, HttpPostedFileBase image)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    vehicleModelService.CreateVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model),image);
+                    await vehicleModelService.CreateVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model),image);
                     return RedirectToAction("VehicleModelList");
                 }
             }
@@ -60,7 +65,7 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             return RedirectToAction("Create");
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -68,7 +73,7 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             else
             {
-                var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id);
+                var vehicleModelWithId = await vehicleModelService.FindVehicleModelWithIdAsync(id);
                 if (vehicleModelWithId == null)
                 {
                     return HttpNotFound();
@@ -78,13 +83,13 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete([Bind(Include = "Id,Name,Abrv,Image")] ModelViewModel model)
+        public async Task<ActionResult> Delete([Bind(Include = "Id,Name,Abrv,Image")] ModelViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    vehicleModelService.DeleteVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model));
+                    await vehicleModelService.DeleteVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model));
                     return RedirectToAction("VehicleModelList");
                 }
             }
@@ -94,7 +99,7 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             return RedirectToAction("Delete", model.Id);
         }
-        public ActionResult Update(int? id)
+        public async Task<ActionResult> Update(int? id)
         {
             if (id == null)
             {
@@ -102,7 +107,7 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             else
             {
-                var vehicleModelWithId = vehicleModelService.FindVehicleModelWithId(id);
+                var vehicleModelWithId = await vehicleModelService.FindVehicleModelWithIdAsync(id);
                 if (vehicleModelWithId == null)
                 {
                     return HttpNotFound();
@@ -113,13 +118,13 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update([Bind(Include = "Id,MakeId,Name,Abrv")] ModelViewModel model)
+        public async Task<ActionResult> Update([Bind(Include = "Id,MakeId,Name,Abrv,Image")] ModelViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    vehicleModelService.UpdateVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model));
+                    await vehicleModelService.UpdateVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model));
                     return RedirectToAction("VehicleModelList");
                 }
             }

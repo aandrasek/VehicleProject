@@ -17,14 +17,14 @@ namespace VehicleMonoProject.Service.Services
 {
     public class VehicleModelService : IVehicleModelService
     {
-        protected IVehicleModelRepository VehicleModelRepository { get; private set; }
+        IVehicleModelRepository VehicleModelRepository;
 
         public VehicleModelService(IVehicleModelRepository VehicleModelRepository)
         {
             this.VehicleModelRepository = VehicleModelRepository;
         }
 
-        public void CreateVehicleModel(IVehicleModel model, HttpPostedFileBase image)
+        public async Task CreateVehicleModelAsync(IVehicleModel model, HttpPostedFileBase image)
         {
             if (image != null)
             {
@@ -38,30 +38,12 @@ namespace VehicleMonoProject.Service.Services
             {
                 model.Image = "default2.png";
             }
-            VehicleModelRepository.AddVehicleModel(AutoMapper.Mapper.Map<VehicleModel>(model));
+            await VehicleModelRepository.AddVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model));
         }
-        public IPagedList<IVehicleModel> GetVehicleModelPaged(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
+        public async Task<IPagedList<IVehicleModel>> GetVehicleModelPagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
         {
-            var vehicleModelList = VehicleModelRepository.GetAllVehicleModels().AsEnumerable();
-            switch (sortParameters.Sort)
-            {
-                case "Name":
-                    vehicleModelList = vehicleModelList.OrderBy(c => c.Name);
-                    break;
-                case "MakeId":
-                    vehicleModelList = vehicleModelList.OrderBy(c => c.MakeId);
-                    break;
-                case "Abrv":
-                    vehicleModelList = vehicleModelList.OrderBy(c => c.Abrv);
-                    break;
-                default:
-                    vehicleModelList = vehicleModelList.OrderBy(c => c.Id);
-                    break;
-            }
-            if (!string.IsNullOrEmpty(filterParameters.Search))
-            {
-                vehicleModelList = vehicleModelList.Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper()));
-            }
+            var vehicleModelList = await VehicleModelRepository.GetVehicleModelsAsync(sortParameters, filterParameters);
+
             if (sortParameters.Direction == "Descending")
             {
                 vehicleModelList = vehicleModelList.Reverse();
@@ -69,15 +51,12 @@ namespace VehicleMonoProject.Service.Services
 
             return vehicleModelList.ToPagedList(pageParameters.Page, pageParameters.PageSize);
         }
-        public IEnumerable<IVehicleMake> GetVehicleMakes()
+
+        public async Task UpdateVehicleModelAsync(IVehicleModel model)
         {
-            return VehicleModelRepository.GetAllVehicleMakes();
+            await VehicleModelRepository.EditVehicleModelAsync(model);
         }
-        public void UpdateVehicleModel(IVehicleModel model)
-        {
-            VehicleModelRepository.EditVehicleModel(model);
-        }
-        public void DeleteVehicleModel(IVehicleModel model)
+        public async Task DeleteVehicleModelAsync(IVehicleModel model)
         {
             if (model.Image != "default2.png")
             {
@@ -87,11 +66,11 @@ namespace VehicleMonoProject.Service.Services
                     File.Delete(fullPath);
                 }
             }
-            VehicleModelRepository.DeleteVehicleModel(model);
+            await VehicleModelRepository.DeleteVehicleModelAsync(model);
         }
-        public IVehicleModel FindVehicleModelWithId(int? id)
+        public async Task<IVehicleModel> FindVehicleModelWithIdAsync(int? id)
         {
-            return VehicleModelRepository.GetVehicleModel(id??0);
+            return await VehicleModelRepository.GetVehicleModelAsync(id??0);
         }
     }
 }

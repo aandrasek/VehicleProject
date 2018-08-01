@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using VehicleMonoProject.Common.Parameters;
@@ -22,12 +23,12 @@ namespace VehicleMonoProject.MVC.Controllers
             this.vehicleMakeService = vehicleMakeService;
         }
 
-        public ActionResult VehicleMakeList(int? page, string sort, string direction, string search)
+        public async Task<ActionResult> VehicleMakeList(int? page, string sort, string direction, string search)
         {
             var sortParameters = new SortParameters() { Sort = sort, Direction = direction };
             var filterParameters = new FilterParameters() { Search = search };
             var pagingParameters = new PageParameters() { Page = page ?? 1, PageSize = 3 };
-            var vehicleMakeList = vehicleMakeService.GetVehicleMakePaged(sortParameters, filterParameters, pagingParameters);
+            var vehicleMakeList = await vehicleMakeService.GetVehicleMakePagedAsync(sortParameters, filterParameters, pagingParameters);
             ViewBag.search = search;
             ViewBag.sort = sort;
             ViewBag.direction = direction;
@@ -41,13 +42,13 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Abrv")] MakeViewModel make, HttpPostedFileBase image)
+        public async Task<ActionResult> Create([Bind(Include = "Name,Abrv")] MakeViewModel make, HttpPostedFileBase image)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    vehicleMakeService.CreateVehicleMake(AutoMapper.Mapper.Map<VehicleMake>(make),image);
+                    await vehicleMakeService.CreateVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMake>(make),image);
                     return RedirectToAction("VehicleMakeList");
                 }
             }
@@ -57,7 +58,7 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             return RedirectToAction("Create");
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -65,7 +66,7 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             else
             {
-                var vehicleMakeWithId = vehicleMakeService.FindVehicleMakeWithId(id);
+                var vehicleMakeWithId = await vehicleMakeService.FindVehicleMakeWithIdAsync(id);
                 if (vehicleMakeWithId == null)
                 {
                     return HttpNotFound();
@@ -75,13 +76,13 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete([Bind(Include = "Id,Name,Abrv,Image")] MakeViewModel make)
+        public async Task<ActionResult> Delete([Bind(Include = "Id,Name,Abrv,Image")] MakeViewModel make)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    vehicleMakeService.DeleteVehicleMake(AutoMapper.Mapper.Map<VehicleMake>(make));
+                    await vehicleMakeService.DeleteVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMake>(make));
                     return RedirectToAction("VehicleMakeList");
                 }
             }
@@ -91,7 +92,7 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             return RedirectToAction("Delete", make.Id);
         }
-        public ActionResult Update(int? id)
+        public async Task<ActionResult> Update(int? id)
         {
             if (id == null)
             {
@@ -99,7 +100,7 @@ namespace VehicleMonoProject.MVC.Controllers
             }
             else
             {
-                var vehicleMakeWithId = vehicleMakeService.FindVehicleMakeWithId(id);
+                var vehicleMakeWithId = await vehicleMakeService.FindVehicleMakeWithIdAsync(id);
                 if (vehicleMakeWithId == null)
                 {
                     return HttpNotFound();
@@ -109,13 +110,13 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update([Bind(Include = "Id,Name,Abrv")] MakeViewModel make)
+        public async Task<ActionResult> Update([Bind(Include = "Id,Name,Abrv,Image")] MakeViewModel make)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    vehicleMakeService.UpdateVehicleMake(AutoMapper.Mapper.Map<VehicleMake>(make));
+                    await vehicleMakeService.UpdateVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMake>(make));
                     return RedirectToAction("VehicleMakeList");
                 }
             }

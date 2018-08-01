@@ -12,10 +12,11 @@ namespace VehicleMonoProject.Service.Common
 {
     public interface IVehicleMakeService
     {
-        void CreateVehicleMake(IVehicleMake make, HttpPostedFileBase image);
-        IPagedList<IVehicleMake> GetVehicleMakePaged(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pagingParameters);
-        void UpdateVehicleMake(IVehicleMake make);
-        void DeleteVehicleMake(IVehicleMake make);
-        IVehicleMake FindVehicleMakeWithId(int? id);
+        Task CreateVehicleMakeAsync(IVehicleMake make, HttpPostedFileBase image);
+        Task<IPagedList<IVehicleMake>> GetVehicleMakePagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pagingParameters);
+        Task UpdateVehicleMakeAsync(IVehicleMake make);
+        Task DeleteVehicleMakeAsync(IVehicleMake make);
+        Task<IEnumerable<IVehicleMake>> GetSelectListItemAsync();
+        Task<IVehicleMake> FindVehicleMakeWithIdAsync(int? id);
     }
 }

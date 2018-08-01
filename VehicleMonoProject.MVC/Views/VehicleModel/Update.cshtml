@@ -39,6 +39,8 @@
             </div>
         </div>
 
+        @Html.TextBoxFor(model => model.Image,null,new { @class="hidden"})
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -48,5 +50,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "VehicleModel")
+    @Html.ActionLink("Back to List", "VehicleModelList")
 </div>

@@ -8,3 +8,5 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository.Com
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository.Common\obj\Debug\VehicleMonoProject.Repository.Common.csproj.CoreCompileInputs.cache
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository.Common\obj\Debug\VehicleMonoProject.Repository.Common.dll
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository.Common\obj\Debug\VehicleMonoProject.Repository.Common.pdb
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository.Common\bin\Debug\VehicleMonoProject.Common.dll
+C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Repository.Common\bin\Debug\VehicleMonoProject.Common.pdb
