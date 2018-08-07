@@ -42,14 +42,7 @@ namespace VehicleMonoProject.Service.Services
         }
         public async Task<IPagedList<IVehicleModel>> GetVehicleModelPagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
         {
-            var vehicleModelList = await VehicleModelRepository.GetVehicleModelsAsync(sortParameters, filterParameters);
-
-            if (sortParameters.Direction == "Descending")
-            {
-                vehicleModelList = vehicleModelList.Reverse();
-            }
-
-            return vehicleModelList.ToPagedList(pageParameters.Page, pageParameters.PageSize);
+            return await VehicleModelRepository.GetVehicleModelsAsync(sortParameters, filterParameters,pageParameters);
         }
 
         public async Task UpdateVehicleModelAsync(IVehicleModel model)

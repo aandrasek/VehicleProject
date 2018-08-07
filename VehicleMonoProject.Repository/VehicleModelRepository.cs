@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -41,30 +42,33 @@ namespace VehicleMonoProject.Repository
            
         }
 
-        public async Task<IEnumerable<IVehicleModel>> GetVehicleModelsAsync(ISortParameters sortParameters, IFilterParameters filterParameters)
+        public async Task<IPagedList<IVehicleModel>> GetVehicleModelsAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
         {
-            Expression<Func<VehicleModelEntity, bool>> filterExpression = c => false;
-            Expression<Func<VehicleModelEntity, string>> sortExpression = c => c.Id.ToString();
+            var vehicleModelList = AutoMapper.Mapper.Map<IEnumerable<IVehicleModel>>(await Repository.GetVehiclesAsync());
             switch (sortParameters.Sort)
             {
                 case "MakeId":
-                    sortExpression = c => c.MakeId.ToString();
+                    vehicleModelList = vehicleModelList.OrderBy(c => c.MakeId);
                     break;
                 case "Name":
-                    sortExpression = c => c.Name;
+                    vehicleModelList = vehicleModelList.OrderBy(c => c.Name);
                     break;
                 case "Abrv":
-                    sortExpression = c => c.Abrv;
+                    vehicleModelList = vehicleModelList.OrderBy(c => c.Abrv);
                     break;
                 default:
+                    vehicleModelList = vehicleModelList.OrderBy(c => c.Id);
                     break;
-
             }
             if (!string.IsNullOrEmpty(filterParameters.Search))
             {
-                filterExpression = c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper());
+                vehicleModelList = vehicleModelList.Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper()));
             }
-            return AutoMapper.Mapper.Map<IEnumerable<IVehicleModel>>(await Repository.GetVehiclesAsync(sortExpression, filterExpression));
+            if (sortParameters.Direction == "Descending")
+            {
+                vehicleModelList = vehicleModelList.Reverse();
+            }
+            return vehicleModelList.ToPagedList(pageParameters.Page, pageParameters.PageSize);
         }
 
         public async Task<IVehicleModel> GetVehicleModelAsync(int id)

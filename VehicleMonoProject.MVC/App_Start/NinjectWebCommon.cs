@@ -47,12 +47,11 @@ namespace VehicleMonoProject.MVC.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var kernel = new StandardKernel(new Service.DIModule(),new Repository.DIModule());
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-                RegisterServices(kernel);
                 return kernel;
             }
             catch
@@ -63,19 +62,5 @@ namespace VehicleMonoProject.MVC.App_Start
 
         }
 
-        /// <summary>
-        /// Load your modules or register your services here!
-        /// </summary>
-        /// <param name="kernel">The kernel.</param>
-        private static void RegisterServices(IKernel kernel)
-        {
-            kernel.Bind(typeof(IGenericRepository<VehicleMakeEntity>)).To(typeof(GenericRepository<VehicleMakeEntity>)).InRequestScope();
-            kernel.Bind(typeof(IGenericRepository<VehicleModelEntity>)).To(typeof(GenericRepository<VehicleModelEntity>)).InRequestScope();
-            kernel.Bind(typeof(IVehicleMakeRepository)).To(typeof(VehicleMakeRepository)).InRequestScope();
-            kernel.Bind<IVehicleMakeService>().To<VehicleMakeService>();
-            kernel.Bind(typeof(IVehicleModelRepository)).To(typeof(VehicleModelRepository)).InRequestScope();
-            kernel.Bind<IVehicleModelService>().To<VehicleModelService>();
-            kernel.Bind<IUnitOfWorkFactory>().ToFactory();
-        }
     }
 }

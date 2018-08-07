@@ -17,7 +17,6 @@ namespace VehicleMonoProject.Service.Services
     public class VehicleMakeService : IVehicleMakeService
     {
         IVehicleMakeRepository VehicleMakeRepository;
-
         public VehicleMakeService(IVehicleMakeRepository VehicleMakeRepository)
         {
             this.VehicleMakeRepository = VehicleMakeRepository;
@@ -42,14 +41,8 @@ namespace VehicleMonoProject.Service.Services
         }
         public async Task<IPagedList<IVehicleMake>> GetVehicleMakePagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
         {
-            var vehicleMakeList = await VehicleMakeRepository.GetVehicleMakesAsync(sortParameters,filterParameters);
+            return await VehicleMakeRepository.GetVehicleMakesAsync(sortParameters,filterParameters,pageParameters);
 
-            if (sortParameters.Direction == "Descending")
-            {
-                vehicleMakeList = vehicleMakeList.Reverse();
-            }
-
-            return vehicleMakeList.ToPagedList(pageParameters.Page, pageParameters.PageSize);
         }
         public async Task UpdateVehicleMakeAsync(IVehicleMake make)
         {

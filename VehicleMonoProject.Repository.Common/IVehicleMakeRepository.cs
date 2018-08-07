@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace VehicleMonoProject.Repository.Common
         Task AddVehicleMakeAsync(IVehicleMake entity);
         Task DeleteVehicleMakeAsync(IVehicleMake entity);
         Task EditVehicleMakeAsync(IVehicleMake entity);
-        Task<IEnumerable<IVehicleMake>> GetVehicleMakesAsync(ISortParameters sortParameters, IFilterParameters filterParameters);
+        Task<IPagedList<IVehicleMake>> GetVehicleMakesAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters);
         Task<IEnumerable<IVehicleMake>> GetSelectListItemAsync();
         Task<IVehicleMake> GetVehicleMakeAsync(int id);
     }

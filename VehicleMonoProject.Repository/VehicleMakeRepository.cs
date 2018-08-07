@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -41,33 +42,34 @@ namespace VehicleMonoProject.Repository
 
         }
 
-        public async Task<IEnumerable<IVehicleMake>> GetVehicleMakesAsync(ISortParameters sortParameters, IFilterParameters filterParameters)
+        public async Task<IPagedList<IVehicleMake>> GetVehicleMakesAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
         {
-            Expression<Func<VehicleMakeEntity, bool>> filterExpression = c => false;
-            Expression<Func<VehicleMakeEntity, string>> sortExpression = c => c.Id.ToString();
+            var vehicleMakeList = AutoMapper.Mapper.Map<IEnumerable<IVehicleMake>>(await Repository.GetVehiclesAsync());
             switch (sortParameters.Sort)
             {
                 case "Name":
-                    sortExpression = c => c.Name;
+                    vehicleMakeList = vehicleMakeList.OrderBy(c => c.Name);
                     break;
                 case "Abrv":
-                    sortExpression = c => c.Abrv;
+                    vehicleMakeList = vehicleMakeList.OrderBy(c => c.Abrv);
                     break;
                 default:
+                    vehicleMakeList = vehicleMakeList.OrderBy(c => c.Id);
                     break;
             }
             if (!string.IsNullOrEmpty(filterParameters.Search))
             {
-                filterExpression = c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper());
+                vehicleMakeList = vehicleMakeList.Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper()));
             }
-            return AutoMapper.Mapper.Map<IEnumerable<IVehicleMake>>(await Repository.GetVehiclesAsync(sortExpression, filterExpression));
+            if (sortParameters.Direction == "Descending")
+            {
+                vehicleMakeList = vehicleMakeList.Reverse();
+            }
+            return vehicleMakeList.ToPagedList(pageParameters.Page, pageParameters.PageSize);
         }
         public async Task<IEnumerable<IVehicleMake>> GetSelectListItemAsync()
         {
-            Expression<Func<VehicleMakeEntity, bool>> filterExpression = c => false;
-            Expression<Func<VehicleMakeEntity, string>> sortExpression = c => c.Id.ToString();
-
-            return AutoMapper.Mapper.Map<IEnumerable<IVehicleMake>>(await Repository.GetVehiclesAsync(sortExpression, filterExpression));
+            return AutoMapper.Mapper.Map<IEnumerable<IVehicleMake>>(await Repository.GetVehiclesAsync());
         }
 
         public async Task<IVehicleMake> GetVehicleMakeAsync(int id)

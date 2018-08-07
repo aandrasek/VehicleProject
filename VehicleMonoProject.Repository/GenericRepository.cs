@@ -25,13 +25,9 @@ namespace VehicleMonoProject.Repository
         {
             return await context.Set<T>().FindAsync(id);
         }
-        public virtual async Task<IEnumerable<T>> GetVehiclesAsync(Expression<Func<T, string>> sortExpression, Expression<Func<T, bool>> filterExpression)
+        public virtual async Task<IEnumerable<T>> GetVehiclesAsync()
         {
-            if (filterExpression.ToString() != "c => False")
-            {
-                return await context.Set<T>().Where(filterExpression).ToListAsync();
-            }
-            return await context.Set<T>().OrderBy(sortExpression).ToListAsync();
+            return await context.Set<T>().ToListAsync();
         }
         public virtual async Task AddAsync(T entity)
         {
