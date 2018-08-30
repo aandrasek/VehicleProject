@@ -103,9 +103,11 @@ span {
 th {
     text-align: center;
 }
+
 .buttonfile {
-    margin-top:5px;
+    margin-top: 5px;
 }
+
 footer {
     text-align: center;
     font-size: 15px;
@@ -117,3 +119,20 @@ footer {
     left: 0;
     right: 0;
 }
+.box {
+    float: left;
+    width: 14%;
+    margin: 10px;
+}
+
+    .box img {
+        height: 150px;
+        width: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .box a {
+        color: #000000;
+    }

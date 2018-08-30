@@ -14,9 +14,8 @@ namespace VehicleMonoProject.Service.Common
     {
         Task CreateVehicleMakeAsync(IVehicleMake make, HttpPostedFileBase image);
         Task<IPagedList<IVehicleMake>> GetVehicleMakePagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pagingParameters);
-        Task UpdateVehicleMakeAsync(IVehicleMake make);
+        Task UpdateVehicleMakeAsync(IVehicleMake make, HttpPostedFileBase image);
         Task DeleteVehicleMakeAsync(IVehicleMake make);
-        Task<IEnumerable<IVehicleMake>> GetSelectListItemAsync();
         Task<IVehicleMake> FindVehicleMakeWithIdAsync(int? id);
     }
 }

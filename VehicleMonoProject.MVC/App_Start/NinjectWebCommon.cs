@@ -11,13 +11,9 @@ namespace VehicleMonoProject.MVC.App_Start
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Web;
-    using VehicleMonoProject.DAL;
-    using VehicleMonoProject.Repository;
-    using VehicleMonoProject.Repository.Common;
-    using VehicleMonoProject.Repository.UOW;
-    using VehicleMonoProject.Service.Common;
-    using VehicleMonoProject.Service.Services;
+    using System.Web.Compilation;
 
     public class NinjectWebCommon
     {
@@ -47,11 +43,12 @@ namespace VehicleMonoProject.MVC.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel(new Service.DIModule(),new Repository.DIModule());
+            var kernel = new StandardKernel(new NinjectSettings { LoadExtensions = false });
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                kernel.Load(AppDomain.CurrentDomain.GetAssemblies());
                 return kernel;
             }
             catch

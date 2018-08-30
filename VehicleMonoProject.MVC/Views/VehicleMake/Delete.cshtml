@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Delete";
 }
+<link rel="stylesheet" type="text/css" href="~/style.css">
 
 <h2>Delete</h2>
 
@@ -26,12 +27,20 @@
             @Html.DisplayFor(model => model.Abrv)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img class="box" src="~/Images/VehicleMakeImages/@Model.Image" alt="@Model.Name" />
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm("Delete", "VehicleMake", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        @Html.TextBoxFor(c=>c.Image, new { style = "display: none;" })
+        @Html.TextBoxFor(c => c.Image, new { style = "display: none;" })
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "VehicleMakeList")

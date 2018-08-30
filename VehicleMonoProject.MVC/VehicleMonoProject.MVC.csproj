@@ -188,7 +188,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ListViewModel.cs" />
     <Compile Include="ViewModels\MakeViewModel.cs" />
     <Compile Include="ViewModels\ModelViewModel.cs" />
   </ItemGroup>
@@ -240,6 +239,7 @@
     <Content Include="Views\VehicleModel\Removal.cshtml" />
     <Content Include="Views\VehicleModel\Delete.cshtml" />
     <Content Include="Views\VehicleModel\Update.cshtml" />
+    <Content Include="Views\VehicleModel\SelectCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

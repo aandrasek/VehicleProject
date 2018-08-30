@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +24,9 @@ namespace VehicleMonoProject.Repository
         {
             return await context.Set<T>().FindAsync(id);
         }
-        public virtual async Task<IEnumerable<T>> GetVehiclesAsync()
+        public virtual IQueryable<T> GetVehiclesAsync()
         {
-            return await context.Set<T>().ToListAsync();
+            return context.Set<T>();
         }
         public virtual async Task AddAsync(T entity)
         {

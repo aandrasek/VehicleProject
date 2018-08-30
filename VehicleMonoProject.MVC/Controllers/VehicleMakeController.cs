@@ -110,13 +110,13 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update([Bind(Include = "Id,Name,Abrv,Image")] MakeViewModel make)
+        public async Task<ActionResult> Update([Bind(Include = "Id,Name,Abrv,Image")] MakeViewModel make, HttpPostedFileBase image)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await vehicleMakeService.UpdateVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMake>(make));
+                    await vehicleMakeService.UpdateVehicleMakeAsync(AutoMapper.Mapper.Map<VehicleMake>(make),image);
                     return RedirectToAction("VehicleMakeList");
                 }
             }

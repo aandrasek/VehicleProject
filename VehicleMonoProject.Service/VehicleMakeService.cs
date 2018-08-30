@@ -1,4 +1,5 @@
-﻿using PagedList;
+﻿using Ninject;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -24,6 +25,47 @@ namespace VehicleMonoProject.Service.Services
 
         public async Task CreateVehicleMakeAsync(IVehicleMake make, HttpPostedFileBase image)
         {
+            InsertImage(make, image);
+
+            await VehicleMakeRepository.AddVehicleMakeAsync(make);
+        }
+        public async Task<IPagedList<IVehicleMake>> GetVehicleMakePagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
+        {
+            return await VehicleMakeRepository.GetVehicleMakesAsync(sortParameters, filterParameters, pageParameters);
+
+        }
+        public async Task UpdateVehicleMakeAsync(IVehicleMake make, HttpPostedFileBase image)
+        {
+            if (image != null)
+            {
+                if (make.Image == "default1.png")
+                {
+                    InsertImage(make, image);
+                }
+                else
+                {
+                    DeleteImage(make);
+                    InsertImage(make,image);
+                }
+            }
+            await VehicleMakeRepository.EditVehicleMakeAsync(make);
+        }
+        public async Task DeleteVehicleMakeAsync(IVehicleMake make)
+        {
+            if (make.Image != "default1.png")
+            {
+                DeleteImage(make);
+            }
+            await VehicleMakeRepository.DeleteVehicleMakeAsync(make);
+        }
+
+        public async Task<IVehicleMake> FindVehicleMakeWithIdAsync(int? id)
+        {
+            return await VehicleMakeRepository.GetVehicleMakeAsync(id ?? 0);
+        }
+
+        public IVehicleMake InsertImage(IVehicleMake make, HttpPostedFileBase image)
+        {
             if (image != null)
             {
                 var nameWithoutExtension = Path.GetFileNameWithoutExtension(image.FileName);
@@ -36,39 +78,15 @@ namespace VehicleMonoProject.Service.Services
             {
                 make.Image = "default1.png";
             }
-           await VehicleMakeRepository.AddVehicleMakeAsync(make);
-
+            return make;
         }
-        public async Task<IPagedList<IVehicleMake>> GetVehicleMakePagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
+        public void DeleteImage(IVehicleMake make)
         {
-            return await VehicleMakeRepository.GetVehicleMakesAsync(sortParameters,filterParameters,pageParameters);
-
-        }
-        public async Task UpdateVehicleMakeAsync(IVehicleMake make)
-        {
-           await VehicleMakeRepository.EditVehicleMakeAsync(make);
-        }
-        public async Task DeleteVehicleMakeAsync(IVehicleMake make)
-        {
-            if (make.Image != "default1.png")
+            string fullPath = HttpContext.Current.Request.MapPath("~/Images/VehicleMakeImages/" + make.Image);
+            if (File.Exists(fullPath))
             {
-                string fullPath = HttpContext.Current.Request.MapPath("~/Images/VehicleMakeImages/" + make.Image);
-                if (File.Exists(fullPath))
-                {
-                    File.Delete(fullPath);
-                }
+                File.Delete(fullPath);
             }
-           await VehicleMakeRepository.DeleteVehicleMakeAsync(make);
-        }
-
-        public async Task<IEnumerable<IVehicleMake>> GetSelectListItemAsync()
-        {
-            return await VehicleMakeRepository.GetSelectListItemAsync();
-        }
-
-        public async Task<IVehicleMake> FindVehicleMakeWithIdAsync(int? id)
-        {
-            return await VehicleMakeRepository.GetVehicleMakeAsync(id ?? 0);
         }
     }
 }

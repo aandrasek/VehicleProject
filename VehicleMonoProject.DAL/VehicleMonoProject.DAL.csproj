@@ -61,25 +61,9 @@
     <Compile Include="Migrations\201805101716522_InitialCreate.Designer.cs">
       <DependentUpon>201805101716522_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805110705459_first.cs" />
-    <Compile Include="Migrations\201805110705459_first.Designer.cs">
-      <DependentUpon>201805110705459_first.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805171825353_second.cs" />
-    <Compile Include="Migrations\201805171825353_second.Designer.cs">
-      <DependentUpon>201805171825353_second.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805261325463_third.cs" />
-    <Compile Include="Migrations\201805261325463_third.Designer.cs">
-      <DependentUpon>201805261325463_third.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806271546483_fourth.cs" />
-    <Compile Include="Migrations\201806271546483_fourth.Designer.cs">
-      <DependentUpon>201806271546483_fourth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807181626317_fifth.cs" />
-    <Compile Include="Migrations\201807181626317_fifth.Designer.cs">
-      <DependentUpon>201807181626317_fifth.cs</DependentUpon>
+    <Compile Include="Migrations\201808301723070_first.cs" />
+    <Compile Include="Migrations\201808301723070_first.Designer.cs">
+      <DependentUpon>201808301723070_first.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,20 +80,8 @@
     <EmbeddedResource Include="Migrations\201805101716522_InitialCreate.resx">
       <DependentUpon>201805101716522_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805110705459_first.resx">
-      <DependentUpon>201805110705459_first.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805171825353_second.resx">
-      <DependentUpon>201805171825353_second.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805261325463_third.resx">
-      <DependentUpon>201805261325463_third.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806271546483_fourth.resx">
-      <DependentUpon>201806271546483_fourth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807181626317_fifth.resx">
-      <DependentUpon>201807181626317_fifth.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808301723070_first.resx">
+      <DependentUpon>201808301723070_first.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

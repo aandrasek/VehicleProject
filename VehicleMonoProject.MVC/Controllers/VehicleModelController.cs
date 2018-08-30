@@ -17,13 +17,10 @@ namespace VehicleMonoProject.MVC.Controllers
     public class VehicleModelController : Controller
     {
         IVehicleModelService vehicleModelService;
-        IVehicleMakeService vehicleMakeService;
-
 
         public VehicleModelController(IVehicleModelService vehicleModelService, IVehicleMakeService vehicleMakeService)
         {
             this.vehicleModelService = vehicleModelService;
-            this.vehicleMakeService = vehicleMakeService;
         }
 
         public async Task<ActionResult> VehicleModelList(int? page, string sort, string direction, string search)
@@ -38,24 +35,33 @@ namespace VehicleMonoProject.MVC.Controllers
             var modelListViewModel = AutoMapper.Mapper.Map<IEnumerable<ModelViewModel>>(vehicleModelList);
             return View(new StaticPagedList<ModelViewModel>(modelListViewModel, vehicleModelList.GetMetaData()));
         }
-        public async Task<ActionResult> Create()
+        public async Task<ActionResult> SelectCategory(int? page,string search)
         {
-            var vehicleMakeList = await vehicleMakeService.GetSelectListItemAsync();
-            ListViewModel listViewModel = new ListViewModel()
+            var pagingParameters = new PageParameters() { Page = page ?? 1, PageSize = 6 };
+            var filterParameters = new FilterParameters() { Search = search };
+            var vehicleMakeList = await vehicleModelService.GetCategoryListAsync(pagingParameters,filterParameters);
+            var makeListViewModel = AutoMapper.Mapper.Map<IEnumerable<MakeViewModel>>(vehicleMakeList);
+            ViewBag.search = search;
+            return View(new StaticPagedList<MakeViewModel>(makeListViewModel, vehicleMakeList.GetMetaData()));
+        }
+        public ActionResult Create(int? makeId)
+        {
+            if (makeId == null)
             {
-                Items =  AutoMapper.Mapper.Map<IList<SelectListItem>>(vehicleMakeList.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }))
-            };
-            return View(listViewModel);
+                return RedirectToAction("SelectCategory");
+            }
+            ModelViewModel viewModel = new ModelViewModel() { MakeId = makeId ?? 0 };
+            return View(viewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(ListViewModel model, HttpPostedFileBase image)
+        public async Task<ActionResult> Create(ModelViewModel model, HttpPostedFileBase image)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await vehicleModelService.CreateVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model),image);
+                    await vehicleModelService.CreateVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model), image);
                     return RedirectToAction("VehicleModelList");
                 }
             }
@@ -83,7 +89,7 @@ namespace VehicleMonoProject.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete([Bind(Include = "Id,Name,Abrv,Image")] ModelViewModel model)
+        public async Task<ActionResult> Delete([Bind(Include = "Id,Name,Abrv,Image,Color,Mileage,ProductionDate")] ModelViewModel model)
         {
             try
             {
@@ -112,19 +118,18 @@ namespace VehicleMonoProject.MVC.Controllers
                 {
                     return HttpNotFound();
                 }
-
                 return View(AutoMapper.Mapper.Map<ModelViewModel>(vehicleModelWithId));
             }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update([Bind(Include = "Id,MakeId,Name,Abrv,Image")] ModelViewModel model)
+        public async Task<ActionResult> Update([Bind(Include = "Id,MakeId,Name,Abrv,Image,Color,Mileage,ProductionDate")] ModelViewModel model, HttpPostedFileBase image)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await vehicleModelService.UpdateVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model));
+                    await vehicleModelService.UpdateVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model),image);
                     return RedirectToAction("VehicleModelList");
                 }
             }

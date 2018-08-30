@@ -1,4 +1,5 @@
-﻿using PagedList;
+﻿using Ninject;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -18,13 +19,61 @@ namespace VehicleMonoProject.Service.Services
     public class VehicleModelService : IVehicleModelService
     {
         IVehicleModelRepository VehicleModelRepository;
+        IVehicleMakeRepository VehicleMakeRepository;
 
-        public VehicleModelService(IVehicleModelRepository VehicleModelRepository)
+        public VehicleModelService(IVehicleModelRepository VehicleModelRepository, IVehicleMakeRepository VehicleMakeRepository)
         {
             this.VehicleModelRepository = VehicleModelRepository;
+            this.VehicleMakeRepository = VehicleMakeRepository;
+
         }
 
         public async Task CreateVehicleModelAsync(IVehicleModel model, HttpPostedFileBase image)
+        {
+            InsertImage(model, image);
+            await VehicleModelRepository.AddVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model));
+        }
+        public async Task<IPagedList<IVehicleModel>> GetVehicleModelPagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
+        {
+            return await VehicleModelRepository.GetVehicleModelsAsync(sortParameters, filterParameters,pageParameters);
+        }
+
+        public async Task UpdateVehicleModelAsync(IVehicleModel model, HttpPostedFileBase image)
+        {
+            if (image != null)
+            {
+                if (model.Image == "default2.png")
+                {
+                    InsertImage(model, image);
+                }
+                else
+                {
+                    DeleteImage(model);
+                    InsertImage(model, image);
+                }
+            }
+            await VehicleModelRepository.EditVehicleModelAsync(model);
+        }
+        public async Task DeleteVehicleModelAsync(IVehicleModel model)
+        {
+            if (model.Image != "default2.png")
+            {
+                DeleteImage(model);
+            }
+            await VehicleModelRepository.DeleteVehicleModelAsync(model);
+        }
+
+        public async Task<IPagedList<IVehicleMake>> GetCategoryListAsync(IPageParameters pageParameters, IFilterParameters filterParameters)
+        {
+            return await VehicleMakeRepository.GetCategoryListAsync(pageParameters,filterParameters);
+        }
+
+        public async Task<IVehicleModel> FindVehicleModelWithIdAsync(int? id)
+        {
+            return await VehicleModelRepository.GetVehicleModelAsync(id??0);
+        }
+
+        public IVehicleModel InsertImage(IVehicleModel model, HttpPostedFileBase image)
         {
             if (image != null)
             {
@@ -38,32 +87,15 @@ namespace VehicleMonoProject.Service.Services
             {
                 model.Image = "default2.png";
             }
-            await VehicleModelRepository.AddVehicleModelAsync(AutoMapper.Mapper.Map<VehicleModel>(model));
+            return model;
         }
-        public async Task<IPagedList<IVehicleModel>> GetVehicleModelPagedAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
+        public void DeleteImage(IVehicleModel model)
         {
-            return await VehicleModelRepository.GetVehicleModelsAsync(sortParameters, filterParameters,pageParameters);
-        }
-
-        public async Task UpdateVehicleModelAsync(IVehicleModel model)
-        {
-            await VehicleModelRepository.EditVehicleModelAsync(model);
-        }
-        public async Task DeleteVehicleModelAsync(IVehicleModel model)
-        {
-            if (model.Image != "default2.png")
+            string fullPath = HttpContext.Current.Request.MapPath("~/Images/VehicleModelImages/" + model.Image);
+            if (File.Exists(fullPath))
             {
-                string fullPath = HttpContext.Current.Request.MapPath("~/Images/VehicleMakeImages/" + model.Image);
-                if (File.Exists(fullPath))
-                {
-                    File.Delete(fullPath);
-                }
+                File.Delete(fullPath);
             }
-            await VehicleModelRepository.DeleteVehicleModelAsync(model);
-        }
-        public async Task<IVehicleModel> FindVehicleModelWithIdAsync(int? id)
-        {
-            return await VehicleModelRepository.GetVehicleModelAsync(id??0);
         }
     }
 }

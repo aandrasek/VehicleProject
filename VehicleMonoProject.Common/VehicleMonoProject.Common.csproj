@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DIModule.cs" />
     <Compile Include="ParametersCommon\IFilterParameters.cs" />
     <Compile Include="ParametersCommon\IPageParameters.cs" />
     <Compile Include="ParametersCommon\ISortParameters.cs" />

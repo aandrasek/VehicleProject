@@ -1,0 +1,46 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<VehicleMonoProject.MVC.ViewModels.MakeViewModel>
+
+@{
+    ViewBag.Title = "SelectCategory";
+}
+<link rel="stylesheet" type="text/css" href="~/style.css">
+
+<h2>SelectCategory</h2>
+
+<div class="row">
+    @using (Html.BeginForm("SelectCategory", "VehicleModel"))
+    {
+        <div class="filterpart">
+            <label>Search(by name):</label>
+            <input class="roundcorners" type="text" name="search" value="@ViewBag.search" placeholder="Search">
+        </div>
+        <div class="filterpart">
+            <input type="submit" class="buttonsearch roundcorners" value="Search" />
+        </div>
+    }
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="box">
+            <a href="@Url.Action("Create", "VehicleModel",new { makeId=item.Id },null)">
+                <img alt="@item.Name img" src="~/Images/VehicleMakeImages/@item.Image">
+                <h4 class="align">@item.Name</h4>
+            </a>
+        </div>
+    }
+</div>
+<div class="align">
+    <div class="row">
+        <div class="page-list">
+            @Html.PagedListPager(Model, page => Url.Action("SelectCategory", new { page, search = ViewBag.search }))
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "VehicleModelList")
+</div>

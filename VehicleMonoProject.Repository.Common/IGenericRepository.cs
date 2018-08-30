@@ -10,7 +10,7 @@ namespace VehicleMonoProject.Repository.Common
     public interface IGenericRepository<T> where T : class
     {
         Task<T> GetVehicleAsync(int id);
-        Task<IEnumerable<T>> GetVehiclesAsync();
+        IQueryable<T> GetVehiclesAsync();
         Task AddAsync(T entity);
         Task DeleteAsync(T entity);
         Task EditAsync(T entity);

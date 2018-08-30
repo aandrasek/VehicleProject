@@ -12,7 +12,11 @@ namespace VehicleMonoProject.MVC
     {
         protected void Application_Start()
         {
-            AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<VehicleMonoProject.MVC.App_Start.AutomapperProfile>());
+            AutoMapper.Mapper.Initialize(x =>
+            {
+                x.AddProfile<VehicleMonoProject.MVC.App_Start.AutomapperProfile>();
+                x.AddProfile<VehicleMonoProject.Repository.AutomapperProfile>();
+            });
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

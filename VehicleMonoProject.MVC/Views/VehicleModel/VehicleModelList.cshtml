@@ -24,6 +24,11 @@
                 <option value="MakeId" @(ViewBag.sort == "MakeId" ? "selected" : "")>MakeId</option>
                 <option value="Name" @(ViewBag.sort == "Name" ? "selected" : "")>Name</option>
                 <option value="Abrv" @(ViewBag.sort == "Abrv" ? "selected" : "")>Abrv</option>
+                <option value="Color" @(ViewBag.sort == "Color" ? "selected" : "")>Color</option>
+                <option value="Mileage" @(ViewBag.sort == "Mileage" ? "selected" : "")>Mileage</option>
+                <option value="ProductionDate" @(ViewBag.sort == "ProductionDate" ? "selected" : "")>Date</option>
+
+
             </select>
         </div>
         <div class="filterpart">
@@ -54,14 +59,23 @@
             Abrv
         </th>
         <th>
-            @Html.ActionLink("Create New", "Create", null, new { @class = "buttoncreate" })
+            Color
+        </th>
+        <th>
+            Mileage(in km)
+        </th>
+        <th>
+            Production Date
+        </th>
+        <th>
+            @Html.ActionLink("Create New", "SelectCategory", null, new { @class = "buttoncreate" })
         </th>
     </tr>
     @foreach (var item in Model)
     {
     <tr>
         <td>
-            <img src="~/Images/VehicleModelImages/@item.Image" alt="@item.Name"/>
+            <img src="~/Images/VehicleModelImages/@item.Image" alt="@item.Name" />
         </td>
         <td>
             <span> @Html.DisplayFor(modelItem => item.MakeId)</span>
@@ -71,6 +85,15 @@
         </td>
         <td>
             <span> @Html.DisplayFor(modelItem => item.Abrv)</span>
+        </td>
+        <td>
+            <span> @Html.DisplayFor(modelItem => item.Color)</span>
+        </td>
+        <td>
+            <span> @Html.DisplayFor(modelItem => item.Mileage)</span>
+        </td>
+        <td>
+            <span> @Html.DisplayFor(modelItem => item.ProductionDate)</span>
         </td>
         <td>
             <span>

@@ -15,7 +15,7 @@ namespace VehicleMonoProject.Repository.Common
         Task DeleteVehicleMakeAsync(IVehicleMake entity);
         Task EditVehicleMakeAsync(IVehicleMake entity);
         Task<IPagedList<IVehicleMake>> GetVehicleMakesAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters);
-        Task<IEnumerable<IVehicleMake>> GetSelectListItemAsync();
+        Task<IPagedList<IVehicleMake>> GetCategoryListAsync(IPageParameters pageParameters, IFilterParameters filterParameters);
         Task<IVehicleMake> GetVehicleMakeAsync(int id);
     }
 }
