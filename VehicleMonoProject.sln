@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleMonoProject.Reposito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleMonoProject.Repository.Common", "VehicleMonoProject.Repository.Common\VehicleMonoProject.Repository.Common.csproj", "{5D9DA9B0-636C-41ED-86E9-44A7DD1F5EF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleMonoProject.WebApi", "VehicleMonoProject.WebApi\VehicleMonoProject.WebApi.csproj", "{FA658945-7FFC-4E96-98D1-CCBE5390B8B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{5D9DA9B0-636C-41ED-86E9-44A7DD1F5EF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D9DA9B0-636C-41ED-86E9-44A7DD1F5EF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D9DA9B0-636C-41ED-86E9-44A7DD1F5EF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA658945-7FFC-4E96-98D1-CCBE5390B8B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA658945-7FFC-4E96-98D1-CCBE5390B8B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA658945-7FFC-4E96-98D1-CCBE5390B8B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA658945-7FFC-4E96-98D1-CCBE5390B8B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

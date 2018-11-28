@@ -14,3 +14,13 @@ C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\obj\Deb
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\bin\Debug\Castle.Core.dll
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\bin\Debug\Castle.Core.xml
 C:\Users\Stole\source\repos\VehicleMonoProject\VehicleMonoProject.Common\obj\Debug\VehicleMonoProject.Common.csprojResolveAssemblyReference.cache
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\bin\Debug\VehicleMonoProject.Common.dll
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\bin\Debug\VehicleMonoProject.Common.pdb
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\bin\Debug\Castle.Core.dll
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\bin\Debug\Ninject.dll
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\bin\Debug\Castle.Core.xml
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\bin\Debug\Ninject.xml
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\obj\Debug\VehicleMonoProject.Common.csprojResolveAssemblyReference.cache
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\obj\Debug\VehicleMonoProject.Common.csproj.CoreCompileInputs.cache
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\obj\Debug\VehicleMonoProject.Common.dll
+C:\Users\Stole\Desktop\VehicleProject-second\VehicleMonoProject.Common\obj\Debug\VehicleMonoProject.Common.pdb

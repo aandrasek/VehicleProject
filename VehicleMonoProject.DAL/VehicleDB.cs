@@ -1,9 +1,6 @@
 namespace VehicleMonoProject.DAL
 {
-    using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
 
     public partial class VehicleDB : DbContext
     {
@@ -23,5 +20,6 @@ namespace VehicleMonoProject.DAL
                 .WithOptional(e => e.VehicleMake)
                 .HasForeignKey(e => e.VehicleMake_Id);
         }
+
     }
 }

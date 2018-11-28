@@ -1,11 +1,6 @@
-﻿using Ninject;
-using PagedList;
+﻿using PagedList;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using VehicleMonoProject.Common.ParametersCommon;
@@ -18,8 +13,8 @@ namespace VehicleMonoProject.Service.Services
 {
     public class VehicleModelService : IVehicleModelService
     {
-        IVehicleModelRepository VehicleModelRepository;
-        IVehicleMakeRepository VehicleMakeRepository;
+        protected IVehicleModelRepository VehicleModelRepository { get; private set; }
+        protected IVehicleMakeRepository VehicleMakeRepository { get; private set; }
 
         public VehicleModelService(IVehicleModelRepository VehicleModelRepository, IVehicleMakeRepository VehicleMakeRepository)
         {

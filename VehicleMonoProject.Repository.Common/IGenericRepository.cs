@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace VehicleMonoProject.Repository.Common
@@ -10,7 +6,7 @@ namespace VehicleMonoProject.Repository.Common
     public interface IGenericRepository<T> where T : class
     {
         Task<T> GetVehicleAsync(int id);
-        IQueryable<T> GetVehiclesAsync();
+        IDbSet<T> GetVehiclesAsync();
         Task AddAsync(T entity);
         Task DeleteAsync(T entity);
         Task EditAsync(T entity);

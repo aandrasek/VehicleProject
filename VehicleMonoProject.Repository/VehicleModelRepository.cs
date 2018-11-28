@@ -1,9 +1,6 @@
 ﻿using PagedList;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using VehicleMonoProject.Common.ParametersCommon;
@@ -15,7 +12,7 @@ namespace VehicleMonoProject.Repository
 {
     public class VehicleModelRepository : IVehicleModelRepository
     {
-        IGenericRepository<VehicleModelEntity> Repository;
+        protected IGenericRepository<VehicleModelEntity> Repository { get; private set; }
 
         public VehicleModelRepository(IGenericRepository<VehicleModelEntity> repository)
         {
@@ -46,39 +43,101 @@ namespace VehicleMonoProject.Repository
         public async Task<IPagedList<IVehicleModel>> GetVehicleModelsAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
         {
             IEnumerable<VehicleModelEntity> vehicleModelList;
+
+            if (!string.IsNullOrEmpty(filterParameters.Search))
+            {
+                if (sortParameters.Direction == "Descending")
+                {
+                    vehicleModelList = await Repository.GetVehiclesAsync()
+                    .Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).OrderByDescending(c => c.Name).ToListAsync();
+                }
+                else
+                {
+                    vehicleModelList = await Repository.GetVehiclesAsync()
+                    .Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).OrderBy(c => c.Name).ToListAsync();
+                }
+                return AutoMapper.Mapper.Map<IEnumerable<IVehicleModel>>(vehicleModelList).ToPagedList(pageParameters.Page, pageParameters.PageSize);
+            }
+
             switch (sortParameters.Sort)
             {
                 case "MakeId":
-                    vehicleModelList = await Repository.GetVehiclesAsync().OrderBy(c => c.MakeId).ToListAsync();
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.MakeId);
                     break;
                 case "Name":
-                    vehicleModelList = await Repository.GetVehiclesAsync().OrderBy(c => c.Name == null).ThenBy(c => c.Name).ToListAsync();
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Name == null).ThenBy(c => c.Name);
                     break;
                 case "Abrv":
-                    vehicleModelList = await Repository.GetVehiclesAsync().OrderBy(c => c.Abrv == null).ThenBy(c => c.Abrv).ToListAsync();
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Abrv == null).ThenBy(c => c.Abrv);
                     break;
                 case "Color":
-                    vehicleModelList = await Repository.GetVehiclesAsync().OrderBy(c => c.Color == null).ThenBy(c => c.Color).ToListAsync();
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Color == null).ThenBy(c => c.Color);
                     break;
                 case "Mileage":
-                    vehicleModelList = await Repository.GetVehiclesAsync().OrderBy(c => c.Mileage).ToListAsync();
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Mileage);
                     break;
                 case "ProductionDate":
-                    vehicleModelList = await Repository.GetVehiclesAsync().OrderBy(c => c.ProductionDate).ToListAsync();
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.ProductionDate);
                     break;
                 default:
-                    vehicleModelList = await Repository.GetVehiclesAsync().OrderBy(c => c.Id).ToListAsync();
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Id);
                     break;
-            }
-            if (!string.IsNullOrEmpty(filterParameters.Search))
-            {
-                vehicleModelList = await Repository.GetVehiclesAsync().Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).ToListAsync();
             }
             if (sortParameters.Direction == "Descending")
             {
                 vehicleModelList = vehicleModelList.Reverse();
             }
             return AutoMapper.Mapper.Map<IEnumerable<IVehicleModel>>(vehicleModelList).ToPagedList(pageParameters.Page, pageParameters.PageSize);
+        }
+
+        public async Task<IEnumerable<IVehicleModel>> GetVehicleModelsAsync(ISortParameters sortParameters, IFilterParameters filterParameters)
+        {
+            IEnumerable<VehicleModelEntity> vehicleModelList;
+
+            if (!string.IsNullOrEmpty(filterParameters.Search))
+            {
+                if (sortParameters.Direction == "Descending")
+                {
+                    vehicleModelList = await Repository.GetVehiclesAsync()
+                    .Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).OrderByDescending(c => c.Name).ToListAsync();
+                }
+                else
+                {
+                    vehicleModelList = await Repository.GetVehiclesAsync()
+                    .Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).OrderBy(c => c.Name).ToListAsync();
+                }
+                return AutoMapper.Mapper.Map<IEnumerable<IVehicleModel>>(vehicleModelList);
+            }
+
+            switch (sortParameters.Sort)
+            {
+                case "MakeId":
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.MakeId);
+                    break;
+                case "Name":
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Name == null).ThenBy(c => c.Name);
+                    break;
+                case "Abrv":
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Abrv == null).ThenBy(c => c.Abrv);
+                    break;
+                case "Color":
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Color == null).ThenBy(c => c.Color);
+                    break;
+                case "Mileage":
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Mileage);
+                    break;
+                case "ProductionDate":
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.ProductionDate);
+                    break;
+                default:
+                    vehicleModelList = Repository.GetVehiclesAsync().OrderBy(c => c.Id);
+                    break;
+            }
+            if (sortParameters.Direction == "Descending")
+            {
+                vehicleModelList = vehicleModelList.Reverse();
+            }
+            return AutoMapper.Mapper.Map<IEnumerable<IVehicleModel>>(vehicleModelList);
         }
 
         public async Task<IVehicleModel> GetVehicleModelAsync(int id)

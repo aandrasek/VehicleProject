@@ -1,11 +1,6 @@
-﻿using Ninject;
-using PagedList;
+﻿using PagedList;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using VehicleMonoProject.Common.ParametersCommon;
@@ -17,7 +12,8 @@ namespace VehicleMonoProject.Service.Services
 {
     public class VehicleMakeService : IVehicleMakeService
     {
-        IVehicleMakeRepository VehicleMakeRepository;
+        protected IVehicleMakeRepository VehicleMakeRepository { get; private set; }
+
         public VehicleMakeService(IVehicleMakeRepository VehicleMakeRepository)
         {
             this.VehicleMakeRepository = VehicleMakeRepository;
@@ -45,7 +41,7 @@ namespace VehicleMonoProject.Service.Services
                 else
                 {
                     DeleteImage(make);
-                    InsertImage(make,image);
+                    InsertImage(make, image);
                 }
             }
             await VehicleMakeRepository.EditVehicleMakeAsync(make);

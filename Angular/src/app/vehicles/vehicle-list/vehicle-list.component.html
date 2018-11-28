@@ -1,0 +1,8 @@
+<table class="table table-hover">
+  <tr *ngFor="let make of service.list">
+  <td (click)="populateForm(make)">[{{make.Id}}]</td>
+  <td (click)="populateForm(make)">{{make.Name}}</td>
+  <td (click)="populateForm(make)">{{make.Abrv}}</td>
+<td><button (click)="onDelete(make.Id)" class="btn btn-sm btn-outline-danger">X</button></td>
+</tr>
+</table>

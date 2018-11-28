@@ -1,8 +1,6 @@
 ﻿using PagedList;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,7 +14,7 @@ namespace VehicleMonoProject.MVC.Controllers
 {
     public class VehicleModelController : Controller
     {
-        IVehicleModelService vehicleModelService;
+        protected IVehicleModelService vehicleModelService;
 
         public VehicleModelController(IVehicleModelService vehicleModelService, IVehicleMakeService vehicleMakeService)
         {

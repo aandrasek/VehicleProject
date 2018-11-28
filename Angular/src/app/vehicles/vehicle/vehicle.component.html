@@ -1,0 +1,22 @@
+<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+  
+    <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+
+  <div class="form-group">
+    <label>NAME</label>
+    <input name="Name" #Name="ngModel" [(ngModel)]="service.formData.Name" class="form-control" required>
+  <div class="validation-error" *ngIf="Name.invalid && Name.touched">This field is required</div>
+  </div>
+
+  <div class="form-group">
+    <label>ABRV</label>
+    <input name="Abrv" #Abrv="ngModel" [(ngModel)]="service.formData.Abrv" class="form-control">
+  </div>
+
+    <input type="hidden" name="Image" #Image="ngModel" [(ngModel)]="service.formData.Image" class="form-control">
+
+    <div class="form-group">
+      <button type="submit" [disabled]="form.invalid" class="btn btn-lg btn-block">Submit</button>
+    </div>
+
+</form>

@@ -1,9 +1,6 @@
 ﻿using PagedList;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using VehicleMonoProject.Common.ParametersCommon;
@@ -17,7 +14,7 @@ namespace VehicleMonoProject.Repository
 {
     public class VehicleMakeRepository : IVehicleMakeRepository
     {
-        IGenericRepository<VehicleMakeEntity> Repository;
+        protected IGenericRepository<VehicleMakeEntity> Repository { get; private set; }
 
         public VehicleMakeRepository(IGenericRepository<VehicleMakeEntity> repository)
         {
@@ -48,21 +45,33 @@ namespace VehicleMonoProject.Repository
         public async Task<IPagedList<IVehicleMake>> GetVehicleMakesAsync(ISortParameters sortParameters, IFilterParameters filterParameters, IPageParameters pageParameters)
         {
             IEnumerable<VehicleMakeEntity> vehicleMakeList;
+
+            if (!string.IsNullOrEmpty(filterParameters.Search))
+            {
+                if (sortParameters.Direction == "Descending")
+                {
+                    vehicleMakeList = await Repository.GetVehiclesAsync()
+                    .Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).OrderByDescending(c => c.Name).ToListAsync();
+                }
+                else
+                {
+                    vehicleMakeList = await Repository.GetVehiclesAsync()
+                    .Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).OrderBy(c => c.Name).ToListAsync();
+                }
+                return AutoMapper.Mapper.Map<IEnumerable<IVehicleMake>>(vehicleMakeList).ToPagedList(pageParameters.Page, pageParameters.PageSize);
+            }
+
             switch (sortParameters.Sort)
             {
                 case "Name":
-                    vehicleMakeList = await Repository.GetVehiclesAsync().OrderBy(c => c.Name == null).ThenBy(c => c.Name).ToListAsync();
+                    vehicleMakeList = Repository.GetVehiclesAsync().OrderBy(c => c.Name == null).ThenBy(c => c.Name);
                     break;
                 case "Abrv":
-                    vehicleMakeList = await Repository.GetVehiclesAsync().OrderBy(c => c.Abrv == null).ThenBy(c => c.Abrv).ToListAsync();
+                    vehicleMakeList = Repository.GetVehiclesAsync().OrderBy(c => c.Abrv == null).ThenBy(c => c.Abrv);
                     break;
                 default:
-                    vehicleMakeList = await Repository.GetVehiclesAsync().OrderBy(c => c.Id).ToListAsync();
+                    vehicleMakeList = Repository.GetVehiclesAsync().OrderBy(c => c.Id);
                     break;
-            }
-            if (!string.IsNullOrEmpty(filterParameters.Search))
-            {
-                vehicleMakeList = await Repository.GetVehiclesAsync().Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).ToListAsync();
             }
             if (sortParameters.Direction == "Descending")
             {
@@ -70,6 +79,45 @@ namespace VehicleMonoProject.Repository
             }
             return AutoMapper.Mapper.Map<IEnumerable<IVehicleMake>>(vehicleMakeList).ToPagedList(pageParameters.Page, pageParameters.PageSize);
         }
+
+        public async Task<IEnumerable<IVehicleMake>> GetVehicleMakesAsync(ISortParameters sortParameters, IFilterParameters filterParameters)
+        {
+            IEnumerable<VehicleMakeEntity> vehicleMakeList;
+
+            if (!string.IsNullOrEmpty(filterParameters.Search))
+            {
+                if (sortParameters.Direction == "Descending")
+                {
+                    vehicleMakeList = await Repository.GetVehiclesAsync()
+                    .Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).OrderByDescending(c => c.Name).ToListAsync();
+                }
+                else
+                {
+                    vehicleMakeList = await Repository.GetVehiclesAsync()
+                    .Where(c => c.Name.ToUpper().Contains(filterParameters.Search.ToUpper())).OrderBy(c => c.Name).ToListAsync();
+                }
+                return AutoMapper.Mapper.Map<IEnumerable<IVehicleMake>>(vehicleMakeList);
+            }
+
+            switch (sortParameters.Sort)
+            {
+                case "Name":
+                    vehicleMakeList = Repository.GetVehiclesAsync().OrderBy(c => c.Name == null).ThenBy(c => c.Name);
+                    break;
+                case "Abrv":
+                    vehicleMakeList = Repository.GetVehiclesAsync().OrderBy(c => c.Abrv == null).ThenBy(c => c.Abrv);
+                    break;
+                default:
+                    vehicleMakeList = Repository.GetVehiclesAsync().OrderBy(c => c.Id);
+                    break;
+            }
+            if (sortParameters.Direction == "Descending")
+            {
+                vehicleMakeList = vehicleMakeList.Reverse();
+            }
+            return AutoMapper.Mapper.Map<IEnumerable<IVehicleMake>>(vehicleMakeList);
+        }
+
 
         public async Task<IPagedList<IVehicleMake>> GetCategoryListAsync(IPageParameters pageParameters, IFilterParameters filterParameters)
         {

@@ -1313,14 +1313,6 @@
             Indicates that the decorated member represents an optional dependency.
             </summary>
         </member>
-        <member name="T:Ninject.BindingPrecedenceComparer">
-            <summary>
-            Implements the binding precedence comparer interface
-            </summary>
-        </member>
-        <member name="M:Ninject.BindingPrecedenceComparer.Compare(Ninject.Planning.Bindings.IBinding,Ninject.Planning.Bindings.IBinding)">
-            <inheritdoc />
-        </member>
         <member name="T:Ninject.Components.ComponentContainer">
             <summary>
             An internal container that manages and resolves components that contribute to Ninject.
@@ -1530,11 +1522,6 @@
         <member name="M:Ninject.GlobalKernelRegistrationModule`1.Unload">
             <summary>
             Unloads the module from the kernel.
-            </summary>
-        </member>
-        <member name="T:Ninject.IBindingPrecedenceComparer">
-            <summary>
-            The binding precedence comparer interface
             </summary>
         </member>
         <member name="T:Ninject.IHaveNinjectComponents">
@@ -4370,6 +4357,19 @@
             <param name="key">The metadata key.</param>
             <param name="value">The metadata value.</param>
         </member>
+        <member name="T:Ninject.Planning.Bindings.BindingPrecedenceComparer">
+            <summary>
+            Implements the binding precedence comparer interface
+            </summary>
+        </member>
+        <member name="M:Ninject.Planning.Bindings.BindingPrecedenceComparer.Compare(Ninject.Planning.Bindings.IBinding,Ninject.Planning.Bindings.IBinding)">
+            <summary>
+            Compares the two bindings.
+            </summary>
+            <param name="x">The first binding.</param>
+            <param name="y">The second binding.</param>
+            <returns>Less than zero if x is less than y; Zero is x equals y; Greater than zero if x is greater than y.</returns>
+        </member>
         <member name="T:Ninject.Planning.Bindings.BindingTarget">
             <summary>
             Describes the target of a binding.
@@ -4540,6 +4540,11 @@
             </summary>
             <param name="key">The metadata key.</param>
             <param name="value">The metadata value.</param>
+        </member>
+        <member name="T:Ninject.Planning.Bindings.IBindingPrecedenceComparer">
+            <summary>
+            The binding precedence comparer interface
+            </summary>
         </member>
         <member name="T:Ninject.Planning.Bindings.Resolvers.DefaultValueBindingResolver">
             <summary>
